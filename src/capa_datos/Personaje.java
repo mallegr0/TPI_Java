@@ -3,10 +3,10 @@ package capa_datos;
 public class Personaje {
 	
 	private String nombre_personaje;
-	private String id_personaje, vida, energia, defensa, evasion, ptos_totales;
+	private int id_personaje, vida, energia, defensa, evasion, ptos_totales;
 	
 	
-	public Personaje(String nombre_personaje, String id_personaje, String vida, String energia, String defensa, String evasion, String ptos_totales) {
+	public Personaje(String nombre_personaje, int id_personaje, int vida, int energia, int defensa, int evasion, int ptos_totales) {
 		this.nombre_personaje = nombre_personaje;
 		this.id_personaje = id_personaje;
 		this.vida = vida;
@@ -27,68 +27,64 @@ public class Personaje {
 	}
 
 
-	public String getId_personaje() {
+	public int getId_personaje() {
 		return id_personaje;
 	}
 
 
-	public void setId_personaje(String id_personaje) {
+	public void setId_personaje(int id_personaje) {
 		this.id_personaje = id_personaje;
 	}
 
 
-	public String getVida() {
+	public int getVida() {
 		return vida;
 	}
 
 
-	public void setVida(String vida) {
+	public void setVida(int vida) {
 		this.vida = vida;
 	}
 
 
-	public String getEnergia() {
+	public int getEnergia() {
 		return energia;
 	}
 
 
-	public void setEnergia(String energia) {
+	public void setEnergia(int energia) {
 		this.energia = energia;
 	}
 
 
-	public String getDefensa() {
+	public int getDefensa() {
 		return defensa;
 	}
 
 
-	public void setDefensa(String defensa) {
+	public void setDefensa(int defensa) {
 		this.defensa = defensa;
 	}
 
 
-	public String getEvasion() {
+	public int getEvasion() {
 		return evasion;
 	}
 
 
-	public void setEvasion(String evasion) {
+	public void setEvasion(int evasion) {
 		this.evasion = evasion;
 	}
 
 
-	public String getPtos_totales() {
+	public int getPtos_totales() {
 		return ptos_totales;
 	}
 
 
-	public void setPtos_totales(String ptos_totales) {
+	public void setPtos_totales(int ptos_totales) {
 		this.ptos_totales = ptos_totales;
 	}
-	
-	
-	
-	
 	
 
 }
