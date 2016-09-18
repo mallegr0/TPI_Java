@@ -1,4 +1,6 @@
-package capa_datos;
+package data;
+
+import entity.Personaje;
 
 public class Controlador {
 	

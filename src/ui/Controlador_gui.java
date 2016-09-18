@@ -1,7 +1,7 @@
-package capa_presentacion;
+package ui;
 
-import capa_logica.Controlador_logico;
-import capa_datos.Personaje;
+import controlador.Controlador_logico;
+import entity.Personaje;
 
 public class Controlador_gui {
 	
@@ -32,3 +32,4 @@ public class Controlador_gui {
 	}
 
 }
+
