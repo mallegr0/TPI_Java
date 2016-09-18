@@ -1,7 +1,7 @@
-package capa_logica;
+package controlador;
 
-import capa_datos.Personaje;
-import capa_datos.Controlador;
+import data.Controlador;
+import entity.Personaje;
 
 public class Controlador_logico {
 	

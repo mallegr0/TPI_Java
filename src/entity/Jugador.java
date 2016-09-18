@@ -1,4 +1,4 @@
-package capa_datos;
+package entity;
 
 public class Jugador {
 
