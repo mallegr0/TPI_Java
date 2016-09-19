@@ -1,13 +1,13 @@
 package controlador;
 
-import data.Controlador;
+import data.DataPersonaje;
 import entity.Personaje;
 
-public class Controlador_logico {
+public class ControladorPersonaje {
 	
 	public static final int max = 80;
 	
-	Controlador c = new Controlador();
+	DataPersonaje c = new DataPersonaje();
 	
 	public boolean alta_datos(Personaje p){
 	

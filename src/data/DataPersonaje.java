@@ -2,7 +2,7 @@ package data;
 
 import entity.Personaje;
 
-public class Controlador {
+public class DataPersonaje {
 	
 	public boolean alta_datos(Personaje p){
 		//Sentencia SQL para dar de alta al personaje

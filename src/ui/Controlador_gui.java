@@ -1,6 +1,6 @@
 package ui;
 
-import controlador.Controlador_logico;
+import controlador.ControladorPersonaje;
 import entity.Personaje;
 
 public class Controlador_gui {
@@ -9,7 +9,7 @@ public class Controlador_gui {
 		//maneja el turno
 	}
 	
-	Controlador_logico c = new Controlador_logico();
+	ControladorPersonaje c = new ControladorPersonaje();
 	
 	public boolean alta_datos(Personaje p){
 		return c.alta_datos(p);
