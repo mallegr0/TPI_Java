@@ -1,6 +1,6 @@
 package data;
 
-import entity.Personaje;
+import entidades.Personaje;
 
 public class DataPersonaje {
 	

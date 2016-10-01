@@ -1,7 +1,7 @@
 package controlador;
 
 import data.DataPersonaje;
-import entity.Personaje;
+import entidades.Personaje;
 
 public class ControladorPersonaje {
 	
