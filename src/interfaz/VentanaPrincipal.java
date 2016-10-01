@@ -88,5 +88,5 @@ public class VentanaPrincipal {
 		JMenuItem menuAcercaDe = new JMenuItem("Acerca de UTN Fighter");
 		menuAyuda.add(menuAcercaDe);
 	}
-
+ //COMENTARIO DE PRUEBA
 }
