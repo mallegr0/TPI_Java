@@ -5,40 +5,38 @@ import entidades.Personaje;
 
 public class ControladorPersonaje {
 	
-	public static final int max = 80;
-	
+	public static final int maxEvasion = 80;
 	DataPersonaje c = new DataPersonaje();
 	
-	public boolean alta_datos(Personaje p){
+	public void altaPersonaje(Personaje p){
+		c.altaPersonaje(p);
+	}
 	
-		return c.alta_datos(p);
+	public void modificaPersonaje(Personaje p){
+		c.modificaPersonaje(p);
 	}
-	public boolean modifica_datos(Personaje p){
-		
-		return c.modifica_datos(p);
-	}
-	public boolean baja_datos(Personaje p){
-		
-		return c.baja_datos(p);
-	}
-	public void consulta_datos(Personaje p){
 	
-		c.consulta_datos(p);
+	public void eliminaPersonaje(Personaje p){
+		c.eliminaPersonaje(p);
+	}
+	
+	public void consultaPersonaje(Personaje p){
+		c.consultaPersonaje(p);
 	}
 
 	public boolean valida_datos(Personaje p){
 		boolean rta = true;
 		
-		if(p.getDefensa() >= max){
+		if(p.getDefensa() >= maxEvasion){
 			rta = false;
 		}
-		else if(p.getEnergia() >= max){
+		else if(p.getEnergia() >= maxEvasion){
 			rta = false;
 		}
-		else if(p.getEvasion() >= max){
+		else if(p.getEvasion() >= maxEvasion){
 			rta = false;
 		}
-		else if(p.getVida() >= max){
+		else if(p.getVida() >= maxEvasion){
 			rta = false;
 		}
 		return rta;

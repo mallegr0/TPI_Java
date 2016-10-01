@@ -126,16 +126,14 @@ public class ABMPersonaje extends JDialog {
 		botonAgregar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
+				Personaje p = new Personaje();
 				
 				if (datosValidos()){
-					mapearDeFormulario();
-					limpiarFormulario();
+					p = mapearDeFormulario();
+					ctrl.altaPersonaje(p);
 					JOptionPane.showMessageDialog(null, "Se guardo el personaje correctamente");
+					limpiarFormulario();
 					}
-				//else JOptionPane.showMessageDialog(null, "Se guardo el personaje");
-				
-				
-				
 				
 			}
 		});
@@ -152,6 +150,7 @@ public class ABMPersonaje extends JDialog {
 
 	}
 
+	//METODO QUE TOMA LOS DATOS DEL FORMULARIO ABMC Y LOS MAPEA A UNA INSTANCIA DE LA CLASE PERSONAJE
 	public Personaje mapearDeFormulario(){
 		Personaje p = new Personaje();
 		p.setId(Integer.parseInt(txtID.getText()));
@@ -160,10 +159,12 @@ public class ABMPersonaje extends JDialog {
 		p.setVida(Integer.parseInt(txtVida.getText()));
 		p.setEvasion(Integer.parseInt(txtEvasion.getText()));
 		p.setDefensa(Integer.parseInt(txtDefensa.getText()));
+		p.setPtosTotales(Integer.parseInt(txtPuntos.getText()));
 		
 		return p;
 	}
 	
+	//METODO PARA LIMPIAR EL FORMULARIO DE ABMC DE PERSONAJES
 	public void limpiarFormulario(){
 		txtID.setText("");
 		txtNombre.setText("");
@@ -174,33 +175,39 @@ public class ABMPersonaje extends JDialog {
 		txtPuntos.setText("");
 	}
 	
+	//ESTE METODO HACE VALIDACIONES VARIAS SOBRE LOS DATOS INGRESADOS EN EL ABMC
 	public boolean datosValidos(){
-		
 		boolean valido = true;
-		if(txtID.getText().trim().length() == 0 || txtNombre.getText().trim().length()==0){
+		if(txtID.getText().trim().length() == 0 || txtNombre.getText().trim().length()==0
+			|| txtEnergia.getText().trim().length()==0 || txtDefensa.getText().trim().length()==0
+			|| txtVida.getText().trim().length()==0 || txtEvasion.getText().trim().length()==0 ||
+			txtPuntos.getText().trim().length()==0){
 			valido = false;
-			notificarUsuario("Por favor, complete todos los campos");
+			notificarUsuario("Por favor, complete todos los campos.");
 		}
-		
-		if(valido && !txtID.getText().matches("[0-9]*")){
+
+		if(valido && (!txtVida.getText().matches("[0-9]*") || !txtEnergia.getText().matches("[0-9]*")
+			|| !txtEvasion.getText().matches("[0-9]*") || !txtDefensa.getText().matches("[0-9]*")
+			|| !txtPuntos.getText().matches("[0-9]*") || !txtID.getText().matches("[0-9]*"))){
 			valido = false;
-			notificarUsuario("El ID no es correcto");
+			notificarUsuario("A excepción del nombre, el resto de los campos debe ser numérico exclusivamente.");
 		}
-		
-		if(valido && !txtID.getText().matches("[0-9]*")){
-			valido = false;
-			notificarUsuario("El ID no es correcto");
-		}
-			
 		return valido;		
 	}
 	
+	//METODO PARA NOTIFICAR ALGUN ERROR AL USUARIO
 	private void notificarUsuario(String mensaje) {
 		JOptionPane.showMessageDialog(null, mensaje);
 	}
 	
-	/*public Personaje mapearDePersonaje(){
-		
-	};*/
+	public void mapearDePersonaje(Personaje p){
+		txtID.setText(String.valueOf(p.getId()));
+		txtNombre.setText(p.getNombre());
+		txtEnergia.setText(String.valueOf(p.getEnergia()));
+		txtVida.setText(String.valueOf(p.getVida()));
+		txtEvasion.setText(String.valueOf(p.getEvasion()));
+		txtDefensa.setText(String.valueOf(p.getDefensa()));
+		txtPuntos.setText(String.valueOf(p.getPtosTotales()));
+	};
 	
 }

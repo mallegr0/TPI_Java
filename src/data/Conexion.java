@@ -12,9 +12,8 @@ public class Conexion {
 	private String port="3306";
 	private String user="root";
 	private String pass="root";
-	private String db="java2016";
+	private String db="tpi-java";
 	private String dbType="mysql";
-	
 	private Connection conn;
 	private int cantConn=0;
 	
