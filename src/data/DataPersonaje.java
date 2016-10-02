@@ -28,7 +28,6 @@ public class DataPersonaje {
 			stmt.setInt(6, p.getDefensa());
 			stmt.setInt(7, p.getEvasion());
 			
-			
 			stmt.execute();
 			
 			//DEVUELVE EL SIGUIENTE ID EN LA FILA DE LA TABLA DE LA BD
@@ -127,24 +126,23 @@ public class DataPersonaje {
 	}
 	
 	public Personaje consultaPersonaje(Personaje per){
-		Personaje p=null;
-		
-		
+		Personaje p = null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
 			stmt = Conexion.getInstancia().getConn().prepareStatement(
-					"select id, dni, nombre, apellido, habilitado from personas where dni=?");
+					"SELECT * FROM personajes WHERE idPersonaje = ?;", PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setInt(1, per.getId());
 			rs= stmt.executeQuery();
 			if(rs!=null && rs.next()){
-				p=new Personaje();
-				p.setId(rs.getInt("id"));
-				p.setVida(rs.getInt("vida"));
-				p.setDefensa(rs.getInt("nombre"));
-				p.setPtosTotales(rs.getInt("apellido"));
-				p.setEvasion(rs.getInt("habilitado"));
-				p.setEnergia(rs.getInt("habilitado"));
+				p = new Personaje();
+				p.setId(rs.getInt("idPersonaje"));
+				p.setNombre(rs.getString("nombrePersonaje"));
+				p.setVida(rs.getInt("vidaPersonaje"));
+				p.setDefensa(rs.getInt("defensaPersonaje"));
+				p.setPtosTotales(rs.getInt("puntosPersonaje"));
+				p.setEvasion(rs.getInt("evasionPersonaje"));
+				p.setEnergia(rs.getInt("energiaPersonaje"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -166,7 +164,6 @@ public class DataPersonaje {
 				e.printStackTrace();
 			}
 		}
-		
 		return p;
 	}
 	

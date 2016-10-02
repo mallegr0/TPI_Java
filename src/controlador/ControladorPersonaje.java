@@ -20,11 +20,16 @@ public class ControladorPersonaje {
 		c.eliminaPersonaje(p);
 	}
 	
-	public void consultaPersonaje(Personaje p){
-		c.consultaPersonaje(p);
+	public Personaje consultaPersonaje(Personaje p){
+		
+		Personaje per = new Personaje();
+		
+		per = c.consultaPersonaje(p);
+		
+		return per;
 	}
 
-	public boolean valida_datos(Personaje p){
+	public boolean validaDatos(Personaje p){
 		boolean rta = true;
 		
 		if(p.getDefensa() >= maxEvasion){

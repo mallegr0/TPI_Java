@@ -64,6 +64,18 @@ public class ABMPersonaje extends JDialog {
 		getContentPane().add(txtID);
 		
 		JButton botonBuscar = new JButton("Buscar");
+		botonBuscar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Personaje per = new Personaje();
+				Personaje p = new Personaje();
+				p.setId(Integer.parseInt(txtID.getText().trim()));
+				per = ctrl.consultaPersonaje(p);
+				mapearDePersonaje(per);
+				
+				
+			}
+		});
 		botonBuscar.setBounds(191, 11, 86, 23);
 		getContentPane().add(botonBuscar);
 		
@@ -195,11 +207,7 @@ public class ABMPersonaje extends JDialog {
 		return valido;		
 	}
 	
-	//METODO PARA NOTIFICAR ALGUN ERROR AL USUARIO
-	private void notificarUsuario(String mensaje) {
-		JOptionPane.showMessageDialog(null, mensaje);
-	}
-	
+	//METODO PARA COMPLETAR EL FORMULARIO DE ABMC DESDE UN OBJETO PERSONAJE
 	public void mapearDePersonaje(Personaje p){
 		txtID.setText(String.valueOf(p.getId()));
 		txtNombre.setText(p.getNombre());
@@ -209,5 +217,10 @@ public class ABMPersonaje extends JDialog {
 		txtDefensa.setText(String.valueOf(p.getDefensa()));
 		txtPuntos.setText(String.valueOf(p.getPtosTotales()));
 	};
+	
+	//METODO PARA NOTIFICAR ALGUN ERROR AL USUARIO
+	private void notificarUsuario(String mensaje) {
+		JOptionPane.showMessageDialog(null, mensaje);
+	}
 	
 }
