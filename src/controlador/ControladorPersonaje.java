@@ -23,9 +23,7 @@ public class ControladorPersonaje {
 	public Personaje consultaPersonaje(Personaje p){
 		
 		Personaje per = new Personaje();
-		
-		per = c.consultaPersonaje(p);
-		
+		per = c.consultaPersonaje(p);		
 		return per;
 	}
 

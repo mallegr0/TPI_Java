@@ -60,21 +60,27 @@ public class DataPersonaje {
 	
 	public void modificaPersonaje(Personaje p){
 		PreparedStatement stmt=null;
-		
+		//ResultSet rs=null;
 		try {
-			stmt= Conexion.getInstancia().getConn().prepareStatement(
-					"update personas set dni=?, nombre=?, apellido=?, habilitado=?"+
-					" where id=?");
+			stmt= Conexion.getInstancia().getConn().prepareStatement("update personajes set " +
+					"nombrePersonaje = ?, puntosPersonaje = ?, vidaPersonaje = ?, " +
+					"energiaPersonaje = ?, defensaPersonaje = ?, evasionPersonaje = ? " +
+					"WHERE idPersonaje = ?");
 			
 			stmt.setString(1, p.getNombre());
-			stmt.setInt(2, p.getVida());
-			stmt.setInt(3, p.getEnergia());
-			stmt.setInt(4, p.getDefensa());
-			stmt.setInt(5, p.getEvasion());
-			stmt.setInt(6, p.getPtosTotales());
+			stmt.setInt(2, p.getPtosTotales());
+			stmt.setInt(3, p.getVida());
+			stmt.setInt(4, p.getEnergia());
+			stmt.setInt(5, p.getDefensa());
+			stmt.setInt(6, p.getEvasion());
+			stmt.setInt(7, p.getId());
 			stmt.execute();
 			
-			
+			/*DEVUELVE EL SIGUIENTE ID EN LA FILA DE LA TABLA DE LA BD
+			rs=stmt.getGeneratedKeys();
+			if(rs!=null && rs.next()){
+				p.setId(rs.getInt(1));
+			}*/
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

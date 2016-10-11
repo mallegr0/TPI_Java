@@ -14,6 +14,9 @@ import entidades.Personaje;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
 
 public class ABMPersonaje extends JDialog {
 
@@ -64,6 +67,16 @@ public class ABMPersonaje extends JDialog {
 		getContentPane().add(txtID);
 		
 		JButton botonBuscar = new JButton("Buscar");
+		botonBuscar.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				Personaje per = new Personaje();
+				Personaje p = new Personaje();
+				p.setId(Integer.parseInt(txtID.getText().trim()));
+				per = ctrl.consultaPersonaje(p);
+				mapearDePersonaje(per);
+			}
+		});
 		botonBuscar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -72,8 +85,6 @@ public class ABMPersonaje extends JDialog {
 				p.setId(Integer.parseInt(txtID.getText().trim()));
 				per = ctrl.consultaPersonaje(p);
 				mapearDePersonaje(per);
-				
-				
 			}
 		});
 		botonBuscar.setBounds(191, 11, 86, 23);
@@ -125,9 +136,14 @@ public class ABMPersonaje extends JDialog {
 		getContentPane().add(txtDefensa);
 		
 		txtPuntos = new JTextField();
+		txtPuntos.setEditable(false);
 		txtPuntos.setToolTipText("");
 		txtPuntos.setColumns(10);
 		txtPuntos.setBounds(142, 183, 86, 20);
+		//int suma = 0;
+		//suma = (Integer.parseInt(txtDefensa.getText()) + Integer.parseInt(txtEnergia.getText()) + Integer.parseInt(txtEvasion.getText()));
+		//if (suma != 0)
+			//	txtPuntos.setText(Integer.toString(suma));
 		getContentPane().add(txtPuntos);
 		
 		JLabel etiqPuntos = new JLabel("Puntos por asignar");
@@ -135,30 +151,63 @@ public class ABMPersonaje extends JDialog {
 		getContentPane().add(etiqPuntos);
 		
 		JButton botonAgregar = new JButton("Agregar");
-		botonAgregar.addMouseListener(new MouseAdapter() {
+		botonAgregar.addKeyListener(new KeyAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void keyPressed(KeyEvent e) {
 				Personaje p = new Personaje();
-				
 				if (datosValidos()){
 					p = mapearDeFormulario();
 					ctrl.altaPersonaje(p);
 					JOptionPane.showMessageDialog(null, "Se guardo el personaje correctamente");
 					limpiarFormulario();
 					}
-				
+			}
+		});
+		botonAgregar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Personaje p = new Personaje();
+				if (datosValidos()){
+					p = mapearDeFormulario();
+					ctrl.altaPersonaje(p);
+					JOptionPane.showMessageDialog(null, "Se guardo el personaje correctamente");
+					limpiarFormulario();
+					}
 			}
 		});
 		botonAgregar.setBounds(10, 223, 89, 23);
 		getContentPane().add(botonAgregar);
 		
 		JButton botonModificar = new JButton("Modificar");
+		botonModificar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				Personaje p = new Personaje();
+				if(datosValidos()){
+					p = mapearDeFormulario();
+					ctrl.modificaPersonaje(p);
+					notificarUsuario("El personaje se ha modificado correctamente.");
+					limpiarFormulario();
+				}
+			}
+		});
 		botonModificar.setBounds(109, 223, 89, 23);
 		getContentPane().add(botonModificar);
 		
 		JButton botonEliminar = new JButton("Eliminar");
 		botonEliminar.setBounds(208, 223, 89, 23);
 		getContentPane().add(botonEliminar);
+		
+		JButton botonLimpiar = new JButton("");
+		botonLimpiar.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				limpiarFormulario();
+			}
+		});
+		botonLimpiar.setIcon(new ImageIcon("C:\\Users\\Joel\\Pictures\\Limpiars.png"));
+		botonLimpiar.setBounds(215, 45, 40, 40);
+		getContentPane().add(botonLimpiar);
 
 	}
 
@@ -207,6 +256,9 @@ public class ABMPersonaje extends JDialog {
 		return valido;		
 	}
 	
+	//METODO PARA VALIDAR LA DISTRIBUCION CORRECTA DE PUNTOS
+	
+	
 	//METODO PARA COMPLETAR EL FORMULARIO DE ABMC DESDE UN OBJETO PERSONAJE
 	public void mapearDePersonaje(Personaje p){
 		txtID.setText(String.valueOf(p.getId()));
@@ -222,5 +274,4 @@ public class ABMPersonaje extends JDialog {
 	private void notificarUsuario(String mensaje) {
 		JOptionPane.showMessageDialog(null, mensaje);
 	}
-	
 }
