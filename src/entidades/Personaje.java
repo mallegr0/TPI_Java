@@ -88,4 +88,6 @@ public class Personaje {
 		this.ptosTotales = ptosTotales;
 	}
 	
+	//Agrego cosa de prueba
+	
 }
