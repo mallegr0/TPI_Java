@@ -9,6 +9,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaPrincipal {
 
@@ -64,19 +66,29 @@ public class VentanaPrincipal {
 		menuBar.add(menuPersonajes);
 		
 		JMenuItem menuABMPersonajes = new JMenuItem("ABMC Personajes");
-		menuABMPersonajes.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent arg0) {
+		menuABMPersonajes.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
 				ABMPersonaje abmPers = new ABMPersonaje();
+				frmUtnFighter.setVisible(false);
 				abmPers.setVisible(true);
+				frmUtnFighter.setVisible(true);
 			}
 		});
+		
 		menuPersonajes.add(menuABMPersonajes);
 		
 		JMenu menuPartida = new JMenu("Partida");
 		menuBar.add(menuPartida);
 		
 		JMenuItem menuPartidaNueva = new JMenuItem("Nueva Partida");
+		menuPartidaNueva.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Partida partida = new Partida();
+				frmUtnFighter.setVisible(false);
+				partida.setVisible(true);
+				frmUtnFighter.setVisible(true);
+			}
+		});
 		menuPartida.add(menuPartidaNueva);
 		
 		JMenu menuAyuda = new JMenu("Ayuda");
@@ -88,5 +100,5 @@ public class VentanaPrincipal {
 		JMenuItem menuAcercaDe = new JMenuItem("Acerca de UTN Fighter");
 		menuAyuda.add(menuAcercaDe);
 	}
- //COMENTARIO DE PRUEBA
+	
 }

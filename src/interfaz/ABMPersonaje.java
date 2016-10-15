@@ -49,6 +49,7 @@ public class ABMPersonaje extends JDialog {
 	 * Create the dialog.
 	 */
 	public ABMPersonaje() {
+		setModal(true);
 		
 		//ACÁ CREO INSTANCIAS DEL CONTROLADOR Y EL DATA
 		ControladorPersonaje ctrl = new ControladorPersonaje();
