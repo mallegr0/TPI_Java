@@ -18,7 +18,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 
-public class ABMPersonaje extends JDialog {
+public class AltaPersonaje extends JDialog {
 
 	private JTextField txtID;
 	private JTextField txtNombre;
@@ -35,7 +35,7 @@ public class ABMPersonaje extends JDialog {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ABMPersonaje dialog = new ABMPersonaje();
+					AltaPersonaje dialog = new AltaPersonaje();
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
 				} catch (Exception e) {
@@ -48,8 +48,9 @@ public class ABMPersonaje extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ABMPersonaje() {
+	public AltaPersonaje() {
 		setModal(true);
+		setResizable(false);
 		
 		//ACÁ CREO INSTANCIAS DEL CONTROLADOR Y EL DATA
 		ControladorPersonaje ctrl = new ControladorPersonaje();
@@ -63,33 +64,10 @@ public class ABMPersonaje extends JDialog {
 		getContentPane().add(etiqID);
 		
 		txtID = new JTextField();
+		txtID.setEditable(false);
 		txtID.setColumns(10);
 		txtID.setBounds(95, 13, 86, 20);
 		getContentPane().add(txtID);
-		
-		JButton botonBuscar = new JButton("Buscar");
-		botonBuscar.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-				Personaje per = new Personaje();
-				Personaje p = new Personaje();
-				p.setId(Integer.parseInt(txtID.getText().trim()));
-				per = ctrl.consultaPersonaje(p);
-				mapearDePersonaje(per);
-			}
-		});
-		botonBuscar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				Personaje per = new Personaje();
-				Personaje p = new Personaje();
-				p.setId(Integer.parseInt(txtID.getText().trim()));
-				per = ctrl.consultaPersonaje(p);
-				mapearDePersonaje(per);
-			}
-		});
-		botonBuscar.setBounds(191, 11, 86, 23);
-		getContentPane().add(botonBuscar);
 		
 		txtNombre = new JTextField();
 		txtNombre.setColumns(10);
@@ -207,7 +185,7 @@ public class ABMPersonaje extends JDialog {
 			}
 		});
 		botonLimpiar.setIcon(new ImageIcon("C:\\Users\\Joel\\Pictures\\Limpiars.png"));
-		botonLimpiar.setBounds(215, 45, 40, 40);
+		botonLimpiar.setBounds(207, 13, 40, 40);
 		getContentPane().add(botonLimpiar);
 
 	}

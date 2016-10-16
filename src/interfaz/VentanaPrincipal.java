@@ -65,22 +65,55 @@ public class VentanaPrincipal {
 		JMenu menuPersonajes = new JMenu("Personaje");
 		menuBar.add(menuPersonajes);
 		
-		JMenuItem menuABMPersonajes = new JMenuItem("ABMC Personajes");
-		menuABMPersonajes.addActionListener(new ActionListener() {
+		JMenuItem menuAltaPers = new JMenuItem("Agregar");
+		menuAltaPers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ABMPersonaje abmPers = new ABMPersonaje();
+				AltaPersonaje abmPers = new AltaPersonaje();
 				frmUtnFighter.setVisible(false);
 				abmPers.setVisible(true);
 				frmUtnFighter.setVisible(true);
 			}
 		});
 		
-		menuPersonajes.add(menuABMPersonajes);
+		menuPersonajes.add(menuAltaPers);
+		
+		JMenuItem menuModifPers = new JMenuItem("Modificar");
+		menuModifPers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ModificacionPersonaje modifPers = new ModificacionPersonaje();
+				frmUtnFighter.setVisible(false);
+				modifPers.setVisible(true);
+				frmUtnFighter.setVisible(true);
+			}
+		});
+		menuPersonajes.add(menuModifPers);
+		
+		JMenuItem menuElimPers = new JMenuItem("Eliminar");
+		menuElimPers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				BajaPersonaje elimPers = new BajaPersonaje();
+				frmUtnFighter.setVisible(false);
+				elimPers.setVisible(true);
+				frmUtnFighter.setVisible(true);
+			}
+		});
+		menuPersonajes.add(menuElimPers);
+		
+		JMenuItem menuListaPers = new JMenuItem("Listado completo");
+		menuListaPers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListadoPersonajes listaPers = new ListadoPersonajes();
+				frmUtnFighter.setVisible(false);
+				listaPers.setVisible(true);
+				frmUtnFighter.setVisible(true);
+			}
+		});
+		menuPersonajes.add(menuListaPers);
 		
 		JMenu menuPartida = new JMenu("Partida");
 		menuBar.add(menuPartida);
 		
-		JMenuItem menuPartidaNueva = new JMenuItem("Nueva Partida");
+		JMenuItem menuPartidaNueva = new JMenuItem("Nueva partida");
 		menuPartidaNueva.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Partida partida = new Partida();
@@ -100,5 +133,4 @@ public class VentanaPrincipal {
 		JMenuItem menuAcercaDe = new JMenuItem("Acerca de UTN Fighter");
 		menuAyuda.add(menuAcercaDe);
 	}
-	
 }

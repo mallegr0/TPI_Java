@@ -173,4 +173,36 @@ public class DataPersonaje {
 		return p;
 	}
 	
+	public static Personaje[] buscaPersonajes()
+	{	Personaje[] per=null;
+	ResultSet res=null;
+		try {
+		    Class.forName("com.mysql.jdbc.Driver");;
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/trabajojava?useSSL=false","root","password"); 
+			Statement st;
+			Statement nu=connection.createStatement();
+		 st= connection.createStatement();
+		 res = st.executeQuery("SELECT idpersonaje, nombre, atk, def, ene, eva, hp FROM trabajojava.personajes;");
+		 ResultSet numero = nu.executeQuery("SELECT count(*) from trabajojava.personajes;");
+		 numero.next();
+		 int num = numero.getInt(1);
+		 per = new Personaje[num];
+		 int i=0;
+		while (res.next()){
+			Personaje p= new Personaje(res.getInt("idpersonaje"), res.getInt("hp"),res.getInt("def"), res.getInt("eva"), res.getInt("atk"), res.getInt("ene"), res.getString("nombre"));
+			per[i]=p;
+			i++;
+			System.out.println(p);
+		};
+		res.close();
+		numero.close();
+		 	} 
+		catch (SQLException e) {
+			;
+			 System.out.println("SQLException \t"+ e.getMessage());
+		}
+		catch (ClassNotFoundException e) {System.out.println("CLASSException");}; 
+		return per;
+	};		
+	
 }
