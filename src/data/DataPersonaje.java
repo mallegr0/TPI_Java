@@ -177,7 +177,7 @@ public class DataPersonaje {
 	{	Personaje[] per=null;
 	ResultSet res=null;
 		try {
-		    Class.forName("com.mysql.jdbc.Driver");;
+		    Class.forName("com.mysql.jdbc.Driver");
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/trabajojava?useSSL=false","root","password"); 
 			Statement st;
 			Statement nu=connection.createStatement();
@@ -188,12 +188,12 @@ public class DataPersonaje {
 		 int num = numero.getInt(1);
 		 per = new Personaje[num];
 		 int i=0;
-		while (res.next()){
+		/*while (res.next()){
 			Personaje p= new Personaje(res.getInt("idpersonaje"), res.getInt("hp"),res.getInt("def"), res.getInt("eva"), res.getInt("atk"), res.getInt("ene"), res.getString("nombre"));
 			per[i]=p;
 			i++;
 			System.out.println(p);
-		};
+		};*/
 		res.close();
 		numero.close();
 		 	} 
