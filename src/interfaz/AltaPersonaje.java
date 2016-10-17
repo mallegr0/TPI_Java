@@ -1,11 +1,14 @@
 package interfaz;
 
+import java.awt.Dialog;
 import java.awt.EventQueue;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.DefaultValueLoaderDecorator;
 
 import controlador.ControladorPersonaje;
 import data.DataPersonaje;
@@ -17,6 +20,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AltaPersonaje extends JDialog {
 
@@ -64,14 +69,14 @@ public class AltaPersonaje extends JDialog {
 		getContentPane().add(etiqID);
 		
 		txtID = new JTextField();
-		txtID.setEditable(false);
 		txtID.setColumns(10);
 		txtID.setBounds(95, 13, 86, 20);
+		txtID.setText(String.valueOf(data.devuelveID()));
 		getContentPane().add(txtID);
 		
 		txtNombre = new JTextField();
 		txtNombre.setColumns(10);
-		txtNombre.setBounds(95, 38, 86, 20);
+		txtNombre.setBounds(95, 38, 133, 20);
 		getContentPane().add(txtNombre);
 		
 		JLabel etiqNombre = new JLabel("Nombre");
@@ -115,77 +120,43 @@ public class AltaPersonaje extends JDialog {
 		getContentPane().add(txtDefensa);
 		
 		txtPuntos = new JTextField();
-		txtPuntos.setEditable(false);
 		txtPuntos.setToolTipText("");
 		txtPuntos.setColumns(10);
 		txtPuntos.setBounds(142, 183, 86, 20);
-		//int suma = 0;
-		//suma = (Integer.parseInt(txtDefensa.getText()) + Integer.parseInt(txtEnergia.getText()) + Integer.parseInt(txtEvasion.getText()));
-		//if (suma != 0)
-			//	txtPuntos.setText(Integer.toString(suma));
 		getContentPane().add(txtPuntos);
 		
 		JLabel etiqPuntos = new JLabel("Puntos por asignar");
 		etiqPuntos.setBounds(24, 186, 123, 14);
 		getContentPane().add(etiqPuntos);
 		
-		JButton botonAgregar = new JButton("Agregar");
-		botonAgregar.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
+		JButton botonAceptar = new JButton("Aceptar");
+		botonAceptar.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0) {
 				Personaje p = new Personaje();
 				if (datosValidos()){
 					p = mapearDeFormulario();
 					ctrl.altaPersonaje(p);
 					JOptionPane.showMessageDialog(null, "Se guardo el personaje correctamente");
-					limpiarFormulario();
-					}
-			}
-		});
-		botonAgregar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				Personaje p = new Personaje();
-				if (datosValidos()){
-					p = mapearDeFormulario();
-					ctrl.altaPersonaje(p);
-					JOptionPane.showMessageDialog(null, "Se guardo el personaje correctamente");
-					limpiarFormulario();
-					}
-			}
-		});
-		botonAgregar.setBounds(10, 223, 89, 23);
-		getContentPane().add(botonAgregar);
-		
-		JButton botonModificar = new JButton("Modificar");
-		botonModificar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				Personaje p = new Personaje();
-				if(datosValidos()){
-					p = mapearDeFormulario();
-					ctrl.modificaPersonaje(p);
-					notificarUsuario("El personaje se ha modificado correctamente.");
 					limpiarFormulario();
 				}
 			}
 		});
-		botonModificar.setBounds(109, 223, 89, 23);
-		getContentPane().add(botonModificar);
+		botonAceptar.setBounds(66, 230, 89, 23);
+		getContentPane().add(botonAceptar);
 		
-		JButton botonEliminar = new JButton("Eliminar");
-		botonEliminar.setBounds(208, 223, 89, 23);
-		getContentPane().add(botonEliminar);
+		JButton botonCancelar = new JButton("Cancelar");
+		botonCancelar.setBounds(166, 230, 89, 23);
+		this.dispose();
+		getContentPane().add(botonCancelar);
 		
 		JButton botonLimpiar = new JButton("");
-		botonLimpiar.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
+		botonLimpiar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				limpiarFormulario();
 			}
 		});
 		botonLimpiar.setIcon(new ImageIcon("C:\\Users\\Joel\\Pictures\\Limpiars.png"));
-		botonLimpiar.setBounds(207, 13, 40, 40);
+		botonLimpiar.setBounds(250, 13, 40, 40);
 		getContentPane().add(botonLimpiar);
 
 	}
@@ -220,8 +191,7 @@ public class AltaPersonaje extends JDialog {
 		boolean valido = true;
 		if(txtID.getText().trim().length() == 0 || txtNombre.getText().trim().length()==0
 			|| txtEnergia.getText().trim().length()==0 || txtDefensa.getText().trim().length()==0
-			|| txtVida.getText().trim().length()==0 || txtEvasion.getText().trim().length()==0 ||
-			txtPuntos.getText().trim().length()==0){
+			|| txtVida.getText().trim().length()==0 || txtEvasion.getText().trim().length()==0){
 			valido = false;
 			notificarUsuario("Por favor, complete todos los campos.");
 		}

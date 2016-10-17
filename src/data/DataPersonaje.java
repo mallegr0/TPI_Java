@@ -10,6 +10,43 @@ public class DataPersonaje {
 		
 	}
 	
+	public int devuelveID(){
+		int elID = 1;
+		ResultSet rs = null;
+		PreparedStatement stmt = null;
+		
+		try {
+			stmt = Conexion.getInstancia().getConn().prepareStatement("SELECT * FROM personajes", PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt.execute();
+			rs = stmt.getGeneratedKeys();
+			if(rs!=null && rs.next()){
+				while (rs.next())
+				elID++;
+			}
+			return elID;	
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally{
+			try {
+				if(rs!=null) rs.close();
+				if(stmt!=null)stmt.close();
+				Conexion.getInstancia().releaseConn();
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+						
+		}
+		return elID;
+	}
+	
 	public void altaPersonaje(Personaje p){
 		
 		ResultSet rs=null;
@@ -178,22 +215,22 @@ public class DataPersonaje {
 	ResultSet res=null;
 		try {
 		    Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/trabajojava?useSSL=false","root","password"); 
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/tpi-java?useSSL=false","root","root"); 
 			Statement st;
 			Statement nu=connection.createStatement();
 		 st= connection.createStatement();
-		 res = st.executeQuery("SELECT idpersonaje, nombre, atk, def, ene, eva, hp FROM trabajojava.personajes;");
-		 ResultSet numero = nu.executeQuery("SELECT count(*) from trabajojava.personajes;");
+		 res = st.executeQuery("SELECT * tpi-java.personajes;");
+		 ResultSet numero = nu.executeQuery("SELECT count(*) from personajes;");
 		 numero.next();
 		 int num = numero.getInt(1);
 		 per = new Personaje[num];
 		 int i=0;
-		/*while (res.next()){
-			Personaje p= new Personaje(res.getInt("idpersonaje"), res.getInt("hp"),res.getInt("def"), res.getInt("eva"), res.getInt("atk"), res.getInt("ene"), res.getString("nombre"));
+		while (res.next()){
+			Personaje p= new Personaje(res.getString("nombrePersonaje"), res.getInt("idPersonaje"), res.getInt("vidaPersonaje"),res.getInt("energiaPersonaje"), res.getInt("defensaPersonaje"), res.getInt("evasionPersonaje"), res.getInt("puntosPersonaje"));
 			per[i]=p;
 			i++;
 			System.out.println(p);
-		};*/
+		};
 		res.close();
 		numero.close();
 		 	} 
