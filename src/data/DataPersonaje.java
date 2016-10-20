@@ -210,17 +210,13 @@ public class DataPersonaje {
 		return p;
 	}
 	
-	public static Personaje[] buscaPersonajes()
+    /*public Personaje[] buscaPersonajes()
 	{	Personaje[] per=null;
-	ResultSet res=null;
+		ResultSet res=null;
 		try {
-		    Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/tpi-java?useSSL=false","root","root"); 
 			Statement st;
-			Statement nu=connection.createStatement();
-		 st= connection.createStatement();
-		 res = st.executeQuery("SELECT * tpi-java.personajes;");
-		 ResultSet numero = nu.executeQuery("SELECT count(*) from personajes;");
+			st = Conexion.getInstancia().getConn().prepareStatement("SELECT * FROM personajes", PreparedStatement.RETURN_GENERATED_KEYS);
+		 		 ResultSet numero = nu.executeQuery("SELECT * from personajes;");
 		 numero.next();
 		 int num = numero.getInt(1);
 		 per = new Personaje[num];
@@ -240,6 +236,6 @@ public class DataPersonaje {
 		}
 		catch (ClassNotFoundException e) {System.out.println("CLASSException");}; 
 		return per;
-	};		
+	};*/		
 	
 }

@@ -22,6 +22,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class AltaPersonaje extends JDialog {
 
@@ -69,6 +70,8 @@ public class AltaPersonaje extends JDialog {
 		getContentPane().add(etiqID);
 		
 		txtID = new JTextField();
+		txtID.setHorizontalAlignment(SwingConstants.CENTER);
+		txtID.setEditable(false);
 		txtID.setColumns(10);
 		txtID.setBounds(95, 13, 86, 20);
 		txtID.setText(String.valueOf(data.devuelveID()));

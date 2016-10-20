@@ -43,8 +43,8 @@ public class ListadoPersonajes extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
-		JList<Personaje> list = new JList<Personaje>(data.DataPersonaje.buscaPersonajes());
+		/*JList<Personaje> list = new JList<Personaje>(data.DataPersonaje.buscaPersonajes());
 		list.setBounds(64, 51, 500, 252);
-		contentPanel.add(list);
+		contentPanel.add(list);*/
 	}
 }
