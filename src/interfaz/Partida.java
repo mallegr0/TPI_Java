@@ -6,7 +6,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import controlador.ControladorPartida;
+import controlador.ControladorPersonaje;
 import data.DataPersonaje;
 import java.util.*;
 import java.awt.Font;
@@ -25,7 +25,7 @@ import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 
 public class Partida extends JDialog {
-	private ControladorPartida juego = new ControladorPartida();
+	private ControladorPersonaje juego = new ControladorPersonaje();
 	private JLabel etiqVidaPers1;
 	private JTextField txtTurno;
 	private JTextField txtPuntosAUsar;
@@ -36,6 +36,8 @@ public class Partida extends JDialog {
 	private JLabel etiqDatoEnergiaPers1;
 	private JLabel etiqDatoVidaPers2;
 	private JLabel etiqDatoEnergiaPers2;
+	private Personaje personaje1;
+	private Personaje personaje2;
 
 	/**
 	 * Launch the application.

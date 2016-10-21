@@ -1,11 +1,14 @@
 package entidades;
 
+import controlador.ControladorPersonaje;
+
 public class Personaje {
 	
 	static int puntajeInicial = 200;
 	static int maximoDeEvasion = 80;
 	private String nombre;
 	private int id, vida, energia, defensa, evasion, ptosTotales;
+	private ControladorPersonaje ctrlPersonaje = new ControladorPersonaje(); 
 	
 	public Personaje(){
 	}
@@ -100,6 +103,18 @@ public class Personaje {
 			respuesta=false;
 		}
 		return respuesta;
+	}
+	
+	//ACCION DE ATACAR DEL PERSONAJE
+	public boolean atacar(Personaje p1, int energia) throws Exception{
+		int aux = p1.getEnergia() - energia;
+		if(aux >= 0){
+			p1.setEnergia(aux);
+			ctrlPersonaje.modificaPersonaje(p1);
+			return true;
+		}else{
+			return false;
+		}
 	}
 	
 }

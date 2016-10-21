@@ -103,7 +103,6 @@ public class DataPersonaje {
 	
 	public void modificaPersonaje(Personaje p){
 		PreparedStatement stmt=null;
-		//ResultSet rs=null;
 		try {
 			stmt= Conexion.getInstancia().getConn().prepareStatement("update personajes set " +
 					"nombrePersonaje = ?, puntosPersonaje = ?, vidaPersonaje = ?, " +
@@ -119,11 +118,6 @@ public class DataPersonaje {
 			stmt.setInt(7, p.getId());
 			stmt.execute();
 			
-			/*DEVUELVE EL SIGUIENTE ID EN LA FILA DE LA TABLA DE LA BD
-			rs=stmt.getGeneratedKeys();
-			if(rs!=null && rs.next()){
-				p.setId(rs.getInt(1));
-			}*/
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

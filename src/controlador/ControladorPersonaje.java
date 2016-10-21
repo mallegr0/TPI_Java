@@ -5,44 +5,46 @@ import entidades.Personaje;
 
 public class ControladorPersonaje {
 	
-	public static final int maxEvasion = 80;
-	DataPersonaje c = new DataPersonaje();
+	DataPersonaje data = new DataPersonaje();
 	
 	public void altaPersonaje(Personaje p){
-		c.altaPersonaje(p);
+		data.altaPersonaje(p);
 	}
 	
 	public void modificaPersonaje(Personaje p){
-		c.modificaPersonaje(p);
+		data.modificaPersonaje(p);
 	}
 	
 	public void eliminaPersonaje(Personaje p){
-		c.eliminaPersonaje(p);
+		data.eliminaPersonaje(p);
 	}
 	
 	public Personaje consultaPersonaje(Personaje p){
 		
 		Personaje per = new Personaje();
-		per = c.consultaPersonaje(p);		
+		per = data.consultaPersonaje(p);		
 		return per;
 	}
 
-	public boolean validaDatos(Personaje p){
-		boolean rta = true;
-		
-		if(p.getDefensa() >= maxEvasion){
-			rta = false;
+	public boolean atacar(Personaje p1, int energia) throws Exception{
+		int aux = p1.getEnergia() - energia;
+		if(aux >= 0){
+			p1.setEnergia(aux);
+			data.modificaPersonaje(p1);
+			return true;
+		}else{
+			return false;
 		}
-		else if(p.getEnergia() >= maxEvasion){
-			rta = false;
+	}
+	
+	public boolean calcularEvasion(Personaje p, int energia){
+		if( (Math.random()*100) < p.getEvasion()){
+			return true;
+		} else {
+			p.setVida(p.getVida()- energia);
+			data.modificaPersonaje(p);
+			return false;
 		}
-		else if(p.getEvasion() >= maxEvasion){
-			rta = false;
-		}
-		else if(p.getVida() >= maxEvasion){
-			rta = false;
-		}
-		return rta;
 	}
 	
 }
