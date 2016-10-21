@@ -2,6 +2,8 @@ package entidades;
 
 public class Personaje {
 	
+	static int puntajeInicial = 200;
+	static int maximoDeEvasion = 80;
 	private String nombre;
 	private int id, vida, energia, defensa, evasion, ptosTotales;
 	
@@ -15,7 +17,7 @@ public class Personaje {
 		this.energia = energia;
 		this.defensa = defensa;
 		this.evasion = evasion;
-		this.ptosTotales = ptosTotales;
+		this.ptosTotales = puntajeInicial;
 	}
 
 
@@ -86,6 +88,18 @@ public class Personaje {
 
 	public void setPtosTotales(int ptosTotales) {
 		this.ptosTotales = ptosTotales;
+	}
+
+	//CONTROLA LOS PUNTAJES QUE PUEDE TENER ASIGNADO EL PERSONAJE PARA CADA CARACTERISTICA
+	public boolean validaPuntaje(){
+		boolean respuesta;
+		
+		if(((defensa + vida + energia + evasion) <= ptosTotales) && (evasion <= maximoDeEvasion)){
+			 respuesta=true;
+		}else{
+			respuesta=false;
+		}
+		return respuesta;
 	}
 	
 }

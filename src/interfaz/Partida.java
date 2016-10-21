@@ -1,23 +1,41 @@
 package interfaz;
 
-import java.awt.EventQueue;
+import java.awt.*;
 
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import controlador.ControladorPartida;
-
+import data.DataPersonaje;
+import java.util.*;
 import java.awt.Font;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import entidades.Personaje;
+import javafx.scene.control.ComboBox;
+
+
+import javax.swing.JComboBox;
+import javax.swing.SwingConstants;
 
 public class Partida extends JDialog {
 	private ControladorPartida juego = new ControladorPartida();
-	private JLabel lblVida;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JLabel etiqVidaPers1;
+	private JTextField txtTurno;
+	private JTextField txtPuntosAUsar;
+	private DataPersonaje data;
+	private JComboBox cbJugador2;
+	private JComboBox cbJugador1;
+	private JLabel etiqDatoVidaPers1;
+	private JLabel etiqDatoEnergiaPers1;
+	private JLabel etiqDatoVidaPers2;
+	private JLabel etiqDatoEnergiaPers2;
 
 	/**
 	 * Launch the application.
@@ -42,83 +60,119 @@ public class Partida extends JDialog {
 	public Partida() {
 		setTitle("Partida");
 		setModal(true);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 487, 385);
 		getContentPane().setLayout(null);
 		
-		JLabel lblPersonaje1 = new JLabel("Personaje 1");
-		lblPersonaje1.setBounds(72, 27, 77, 14);
-		getContentPane().add(lblPersonaje1);
+		etiqVidaPers1 = new JLabel("Vida");
+		etiqVidaPers1.setBounds(90, 106, 46, 14);
+		getContentPane().add(etiqVidaPers1);
 		
-		JLabel lblPersonaje2 = new JLabel("Personaje 2");
-		lblPersonaje2.setBounds(260, 27, 77, 14);
-		getContentPane().add(lblPersonaje2);
+		etiqDatoVidaPers1 = new JLabel("200");
+		etiqDatoVidaPers1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		etiqDatoVidaPers1.setBounds(146, 106, 56, 14);
+		getContentPane().add(etiqDatoVidaPers1);
 		
-		lblVida = new JLabel("New label");
-		lblVida.setBounds(37, 56, 46, 14);
-		getContentPane().add(lblVida);
+		JLabel etiqEnergiaPers1 = new JLabel("Energia");
+		etiqEnergiaPers1.setBounds(90, 136, 46, 14);
+		getContentPane().add(etiqEnergiaPers1);
 		
-		JLabel label = new JLabel("200");
-		label.setFont(new Font("Tahoma", Font.BOLD, 14));
-		label.setBounds(93, 56, 56, 14);
-		getContentPane().add(label);
+		etiqDatoEnergiaPers1 = new JLabel("200");
+		etiqDatoEnergiaPers1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		etiqDatoEnergiaPers1.setBounds(146, 136, 56, 14);
+		getContentPane().add(etiqDatoEnergiaPers1);
 		
-		JLabel label_1 = new JLabel("New label");
-		label_1.setBounds(37, 86, 46, 14);
-		getContentPane().add(label_1);
+		JLabel etiqVidaPers2 = new JLabel("Vida");
+		etiqVidaPers2.setBounds(289, 106, 46, 14);
+		getContentPane().add(etiqVidaPers2);
 		
-		JLabel label_2 = new JLabel("200");
-		label_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-		label_2.setBounds(93, 86, 56, 14);
-		getContentPane().add(label_2);
+		etiqDatoVidaPers2 = new JLabel("200");
+		etiqDatoVidaPers2.setFont(new Font("Tahoma", Font.BOLD, 14));
+		etiqDatoVidaPers2.setBounds(345, 106, 56, 14);
+		getContentPane().add(etiqDatoVidaPers2);
 		
-		JLabel label_3 = new JLabel("New label");
-		label_3.setBounds(236, 56, 46, 14);
-		getContentPane().add(label_3);
+		JLabel etiqEnergiaPers2 = new JLabel("Energ\u00EDa");
+		etiqEnergiaPers2.setBounds(289, 136, 46, 14);
+		getContentPane().add(etiqEnergiaPers2);
 		
-		JLabel label_4 = new JLabel("200");
-		label_4.setFont(new Font("Tahoma", Font.BOLD, 14));
-		label_4.setBounds(292, 56, 56, 14);
-		getContentPane().add(label_4);
+		etiqDatoEnergiaPers2 = new JLabel("200");
+		etiqDatoEnergiaPers2.setFont(new Font("Tahoma", Font.BOLD, 14));
+		etiqDatoEnergiaPers2.setBounds(345, 136, 56, 14);
+		getContentPane().add(etiqDatoEnergiaPers2);
 		
-		JLabel label_5 = new JLabel("New label");
-		label_5.setBounds(236, 86, 46, 14);
-		getContentPane().add(label_5);
+		JLabel etiqTurno = new JLabel("Es el turno de");
+		etiqTurno.setBounds(90, 189, 104, 14);
+		getContentPane().add(etiqTurno);
 		
-		JLabel label_6 = new JLabel("200");
-		label_6.setFont(new Font("Tahoma", Font.BOLD, 14));
-		label_6.setBounds(292, 86, 56, 14);
-		getContentPane().add(label_6);
+		txtTurno = new JTextField();
+		txtTurno.setEditable(false);
+		txtTurno.setBounds(204, 186, 86, 20);
+		getContentPane().add(txtTurno);
+		txtTurno.setColumns(10);
 		
-		JLabel label_7 = new JLabel("New label");
-		label_7.setBounds(37, 139, 46, 14);
-		getContentPane().add(label_7);
+		JLabel etiqPuntos = new JLabel("Puntos a usar");
+		etiqPuntos.setBounds(90, 220, 104, 14);
+		getContentPane().add(etiqPuntos);
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setBounds(93, 136, 86, 20);
-		getContentPane().add(textField);
-		textField.setColumns(10);
+		txtPuntosAUsar = new JTextField();
+		txtPuntosAUsar.setColumns(10);
+		txtPuntosAUsar.setBounds(204, 217, 86, 20);
+		getContentPane().add(txtPuntosAUsar);
 		
-		JLabel label_8 = new JLabel("New label");
-		label_8.setBounds(37, 170, 46, 14);
-		getContentPane().add(label_8);
-		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(93, 167, 86, 20);
-		getContentPane().add(textField_1);
-		
-		JButton btnAtacar = new JButton("Atacar");
-		btnAtacar.setBounds(72, 210, 89, 23);
+		JButton btnAtacar = new JButton("");
+		btnAtacar.setIcon(new ImageIcon("D:\\Usuario\\Documents\\EDT_Eclipse\\TPI_Java\\src\\interfaz\\Bomba.png"));
+		btnAtacar.setBounds(141, 261, 89, 61);
+		//btnAtacar.setIcon(new ImageIcon(Partida.class.getResource("/interfaz/Bomba.png")));
 		getContentPane().add(btnAtacar);
 		
-		JButton button = new JButton("Defender");
-		button.addActionListener(new ActionListener() {
+		JButton botonDefender = new JButton("");
+		botonDefender.setIcon(new ImageIcon("D:\\Usuario\\Documents\\EDT_Eclipse\\TPI_Java\\src\\interfaz\\Escudo.png"));
+		botonDefender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		button.setBounds(246, 210, 89, 23);
-		getContentPane().add(button);
+		botonDefender.setBounds(268, 261, 89, 61);
+		getContentPane().add(botonDefender);
+		
+		cbJugador1 = new JComboBox();
+		/*cbJugador1.setModel(new DefaultComboBoxModel(new String[] {}));
+		try {
+			llenarCB(cbJugador1);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}*/
+		cbJugador1.setBounds(83, 60, 147, 20);
+		getContentPane().add(cbJugador1);
+		
+		cbJugador2 = new JComboBox();
+		cbJugador2.setBounds(247, 60, 147, 20);
+		getContentPane().add(cbJugador2);
+		
+		JLabel etiqJugador1 = new JLabel("JUGADOR N\u00B0 1");
+		etiqJugador1.setFont(new Font("Calibri", Font.BOLD, 14));
+		etiqJugador1.setHorizontalAlignment(SwingConstants.CENTER);
+		etiqJugador1.setBounds(107, 33, 95, 14);
+		getContentPane().add(etiqJugador1);
+		
+		JLabel etiqJugador2 = new JLabel("JUGADOR N\u00B0 2");
+		etiqJugador2.setFont(new Font("Calibri", Font.BOLD, 14));
+		etiqJugador2.setHorizontalAlignment(SwingConstants.CENTER);
+		etiqJugador2.setBounds(268, 33, 89, 14);
+		getContentPane().add(etiqJugador2);
 
+		
 	}
+	
+	/*public void llenarCB(JComboBox combo) throws SQLException{
+		DefaultComboBoxModel mldCombo = new DefaultComboBoxModel();
+		combo.setModel(mldCombo);
+		combo.removeAllItems();
+		
+		ArrayList<String> resultado = data.listarPersonajes();	 
+	    for(int i=0; i<resultado.size();i++){
+	    	String nombre = (String)resultado.get(i);
+	        combo.addItem(resultado.get(i));
+	    }
+		
+	}*/
 }

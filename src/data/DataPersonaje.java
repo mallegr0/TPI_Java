@@ -1,8 +1,14 @@
 package data;
 
+import java.sql.PreparedStatement;
 import java.sql.*;
-import entidades.*;
-import utilidades.*;
+import java.sql.SQLException;
+import java.util.*;
+
+import javax.swing.JOptionPane;
+
+import entidades.Personaje;
+import utilidades.ApplicationException;
 
 public class DataPersonaje {
 	
@@ -209,33 +215,51 @@ public class DataPersonaje {
 		}
 		return p;
 	}
-	
-    /*public Personaje[] buscaPersonajes()
-	{	Personaje[] per=null;
-		ResultSet res=null;
+
+	@SuppressWarnings("rawtypes")
+	public ArrayList<String> listarPersonajes(){
+		ArrayList<String> listado = new ArrayList<>();
+		PreparedStatement decPrep = null;
+		ResultSet conjResult = null;
+		
 		try {
-			Statement st;
-			st = Conexion.getInstancia().getConn().prepareStatement("SELECT * FROM personajes", PreparedStatement.RETURN_GENERATED_KEYS);
-		 		 ResultSet numero = nu.executeQuery("SELECT * from personajes;");
-		 numero.next();
-		 int num = numero.getInt(1);
-		 per = new Personaje[num];
-		 int i=0;
-		while (res.next()){
-			Personaje p= new Personaje(res.getString("nombrePersonaje"), res.getInt("idPersonaje"), res.getInt("vidaPersonaje"),res.getInt("energiaPersonaje"), res.getInt("defensaPersonaje"), res.getInt("evasionPersonaje"), res.getInt("puntosPersonaje"));
-			per[i]=p;
-			i++;
-			System.out.println(p);
-		};
-		res.close();
-		numero.close();
-		 	} 
-		catch (SQLException e) {
-			;
-			 System.out.println("SQLException \t"+ e.getMessage());
+			decPrep = Conexion.getInstancia().getConn().prepareStatement("SELECT * FROM personajes", PreparedStatement.RETURN_GENERATED_KEYS);
+			conjResult = decPrep.executeQuery();
+			if(conjResult!=null && conjResult.next()){
+				while(conjResult.next()){
+					String p = new String();
+					p = conjResult.getString("nombrePersonaje");
+					listado.add(p);
+				}
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ApplicationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if(conjResult!=null)conjResult.close();
+				if(decPrep!=null)decPrep.close();
+				Conexion.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				JOptionPane.showMessageDialog(null, "Problemas de conexión con la Base de Datos al intentar listar los personajes");
+				e.printStackTrace();
+			} catch (ApplicationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		catch (ClassNotFoundException e) {System.out.println("CLASSException");}; 
-		return per;
-	};*/		
+		
+		
+		int i;		
+		for(i=0; i<= listado.size(); i++){
+			System.out.println(listado.get(i));
+		}
+		
+		return listado;
+	}
 	
 }

@@ -7,6 +7,8 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class BajaPersonaje extends JDialog {
 
@@ -51,6 +53,11 @@ public class BajaPersonaje extends JDialog {
 		getContentPane().add(btnAceptar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			dispose();
+			}
+		});
 		btnCancelar.setBounds(164, 97, 89, 23);
 		getContentPane().add(btnCancelar);
 

@@ -44,4 +44,5 @@ public class ControladorPersonaje {
 		}
 		return rta;
 	}
+	
 }

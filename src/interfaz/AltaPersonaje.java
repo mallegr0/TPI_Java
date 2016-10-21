@@ -71,10 +71,8 @@ public class AltaPersonaje extends JDialog {
 		
 		txtID = new JTextField();
 		txtID.setHorizontalAlignment(SwingConstants.CENTER);
-		txtID.setEditable(false);
 		txtID.setColumns(10);
 		txtID.setBounds(95, 13, 86, 20);
-		txtID.setText(String.valueOf(data.devuelveID()));
 		getContentPane().add(txtID);
 		
 		txtNombre = new JTextField();
@@ -123,7 +121,10 @@ public class AltaPersonaje extends JDialog {
 		getContentPane().add(txtDefensa);
 		
 		txtPuntos = new JTextField();
+		txtPuntos.setEditable(false);
+		txtPuntos.setHorizontalAlignment(SwingConstants.CENTER);
 		txtPuntos.setToolTipText("");
+		txtPuntos.setText("200");
 		txtPuntos.setColumns(10);
 		txtPuntos.setBounds(142, 183, 86, 20);
 		getContentPane().add(txtPuntos);
@@ -138,27 +139,35 @@ public class AltaPersonaje extends JDialog {
 				Personaje p = new Personaje();
 				if (datosValidos()){
 					p = mapearDeFormulario();
+					if(p.validaPuntaje()){
 					ctrl.altaPersonaje(p);
 					JOptionPane.showMessageDialog(null, "Se guardo el personaje correctamente");
 					limpiarFormulario();
+					} else {
+						notificarUsuario("Alguno de los puntajes no fue correctamente asignado");
+					}
 				}
 			}
 		});
 		botonAceptar.setBounds(66, 230, 89, 23);
 		getContentPane().add(botonAceptar);
 		
-		JButton botonCancelar = new JButton("Cancelar");
-		botonCancelar.setBounds(166, 230, 89, 23);
-		this.dispose();
-		getContentPane().add(botonCancelar);
+		JButton botonSalir = new JButton("Salir");
+		botonSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+		botonSalir.setBounds(166, 230, 89, 23);
+		getContentPane().add(botonSalir);
 		
 		JButton botonLimpiar = new JButton("");
+		botonLimpiar.setIcon(new ImageIcon(AltaPersonaje.class.getResource("/com/sun/javafx/scene/web/skin/Undo_16x16_JFX.png")));
 		botonLimpiar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				limpiarFormulario();
 			}
 		});
-		botonLimpiar.setIcon(new ImageIcon("C:\\Users\\Joel\\Pictures\\Limpiars.png"));
 		botonLimpiar.setBounds(250, 13, 40, 40);
 		getContentPane().add(botonLimpiar);
 
@@ -186,7 +195,6 @@ public class AltaPersonaje extends JDialog {
 		txtVida.setText("");
 		txtEvasion.setText("");
 		txtDefensa.setText("");
-		txtPuntos.setText("");
 	}
 	
 	//ESTE METODO HACE VALIDACIONES VARIAS SOBRE LOS DATOS INGRESADOS EN EL ABMC

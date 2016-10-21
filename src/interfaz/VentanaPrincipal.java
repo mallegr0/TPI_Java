@@ -11,6 +11,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 public class VentanaPrincipal {
 
@@ -44,20 +47,27 @@ public class VentanaPrincipal {
 	 */
 	private void initialize() {
 		frmUtnFighter = new JFrame();
+		frmUtnFighter.getContentPane().setBackground(new Color(0, 139, 139));
 		frmUtnFighter.setTitle("UTN Fighter");
 		frmUtnFighter.setBounds(100, 100, 450, 300);
 		frmUtnFighter.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmUtnFighter.getContentPane().setLayout(null);
+		frmUtnFighter.setResizable(false);
 		
-		JButton botonSalir = new JButton("Salir del Juego");
-		botonSalir.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
+		JButton botonSalir = new JButton("");
+		botonSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		botonSalir.setBounds(137, 81, 150, 61);
+		botonSalir.setIcon(new ImageIcon(VentanaPrincipal.class.getResource("/javax/swing/plaf/metal/icons/ocean/close.gif")));
+		botonSalir.setBounds(400, 11, 34, 32);
 		frmUtnFighter.getContentPane().add(botonSalir);
+		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setIcon(new ImageIcon("D:\\Usuario\\Documents\\EDT_Eclipse\\TPI_Java\\src\\interfaz\\Ryu.jpg"));
+		btnNewButton.setBounds(128, 38, 179, 161);
+		frmUtnFighter.getContentPane().add(btnNewButton);
 		
 		JMenuBar menuBar = new JMenuBar();
 		frmUtnFighter.setJMenuBar(menuBar);

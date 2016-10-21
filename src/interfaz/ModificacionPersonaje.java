@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ModificacionPersonaje extends JDialog {
 
@@ -114,6 +116,11 @@ public class ModificacionPersonaje extends JDialog {
 		contentPanel.add(btnAceptar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
 		btnCancelar.setBounds(179, 239, 89, 23);
 		contentPanel.add(btnCancelar);
 		

@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import entidades.Personaje;
+import data.*;
 
 import javax.swing.JTable;
 import javax.swing.JSpinner;
@@ -43,7 +44,7 @@ public class ListadoPersonajes extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
-		/*JList<Personaje> list = new JList<Personaje>(data.DataPersonaje.buscaPersonajes());
+		/*JList<Personaje> list = new JList<Personaje>(buscaPersonajes());
 		list.setBounds(64, 51, 500, 252);
 		contentPanel.add(list);*/
 	}
