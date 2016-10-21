@@ -19,14 +19,13 @@ import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import entidades.Personaje;
 import javafx.scene.control.ComboBox;
-
+import controlador.*;
 
 import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 
 public class Partida extends JDialog {
-	private ControladorPersonaje juego = new ControladorPersonaje();
-	private JLabel etiqVidaPers1;
+	private ControladorPartida partida = new ControladorPartida();
 	private JTextField txtTurno;
 	private JTextField txtPuntosAUsar;
 	private DataPersonaje data;
@@ -36,8 +35,10 @@ public class Partida extends JDialog {
 	private JLabel etiqDatoEnergiaPers1;
 	private JLabel etiqDatoVidaPers2;
 	private JLabel etiqDatoEnergiaPers2;
-	private Personaje personaje1;
-	private Personaje personaje2;
+	public Personaje personajeActivo;
+	public Personaje personajePasivo;
+	private JTextField txtPersonaje1;
+	private JTextField txtPersonaje2;
 
 	/**
 	 * Launch the application.
@@ -49,6 +50,25 @@ public class Partida extends JDialog {
 					Partida dialog = new Partida();
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
+					
+					
+					/*personajeActivo.setNombre("Ryu");
+					personajeActivo.setEnergia(50);
+					personajeActivo.setVida(50);
+					personajeActivo.setDefensa(50);
+					personajeActivo.setEvasion(50);
+					personajeActivo.setId(7);
+					personajeActivo.setPtosTotales(200);
+					
+					personajePasivo.setNombre("Rhonda");
+					personajePasivo.setEnergia(50);
+					personajePasivo.setVida(50);
+					personajePasivo.setDefensa(50);
+					personajePasivo.setEvasion(50);
+					personajePasivo.setId(7);
+					personajePasivo.setPtosTotales(200);
+					*/
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -60,12 +80,13 @@ public class Partida extends JDialog {
 	 * Create the dialog.
 	 */
 	public Partida() {
+				
 		setTitle("Partida");
 		setModal(true);
 		setBounds(100, 100, 487, 385);
 		getContentPane().setLayout(null);
 		
-		etiqVidaPers1 = new JLabel("Vida");
+		JLabel etiqVidaPers1 = new JLabel("Vida");
 		etiqVidaPers1.setBounds(90, 106, 46, 14);
 		getContentPane().add(etiqVidaPers1);
 		
@@ -107,6 +128,7 @@ public class Partida extends JDialog {
 		
 		txtTurno = new JTextField();
 		txtTurno.setEditable(false);
+		//txtTurno.setText(personajeActivo.getNombre());
 		txtTurno.setBounds(204, 186, 86, 20);
 		getContentPane().add(txtTurno);
 		txtTurno.setColumns(10);
@@ -143,38 +165,48 @@ public class Partida extends JDialog {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}*/
-		cbJugador1.setBounds(83, 60, 147, 20);
+		cbJugador1.setBounds(78, 38, 147, 20);
 		getContentPane().add(cbJugador1);
 		
 		cbJugador2 = new JComboBox();
-		cbJugador2.setBounds(247, 60, 147, 20);
+		cbJugador2.setBounds(242, 38, 147, 20);
 		getContentPane().add(cbJugador2);
 		
 		JLabel etiqJugador1 = new JLabel("JUGADOR N\u00B0 1");
 		etiqJugador1.setFont(new Font("Calibri", Font.BOLD, 14));
 		etiqJugador1.setHorizontalAlignment(SwingConstants.CENTER);
-		etiqJugador1.setBounds(107, 33, 95, 14);
+		etiqJugador1.setBounds(107, 13, 95, 14);
 		getContentPane().add(etiqJugador1);
 		
 		JLabel etiqJugador2 = new JLabel("JUGADOR N\u00B0 2");
 		etiqJugador2.setFont(new Font("Calibri", Font.BOLD, 14));
 		etiqJugador2.setHorizontalAlignment(SwingConstants.CENTER);
-		etiqJugador2.setBounds(268, 33, 89, 14);
+		etiqJugador2.setBounds(268, 13, 89, 14);
 		getContentPane().add(etiqJugador2);
+		
+		txtPersonaje1 = new JTextField();
+		txtPersonaje1.setBounds(78, 69, 147, 20);
+		getContentPane().add(txtPersonaje1);
+		txtPersonaje1.setColumns(10);
+		
+		txtPersonaje2 = new JTextField();
+		txtPersonaje2.setColumns(10);
+		txtPersonaje2.setBounds(242, 69, 147, 20);
+		getContentPane().add(txtPersonaje2);
 
 		
 	}
 	
-	/*public void llenarCB(JComboBox combo) throws SQLException{
-		DefaultComboBoxModel mldCombo = new DefaultComboBoxModel();
-		combo.setModel(mldCombo);
-		combo.removeAllItems();
-		
-		ArrayList<String> resultado = data.listarPersonajes();	 
-	    for(int i=0; i<resultado.size();i++){
-	    	String nombre = (String)resultado.get(i);
-	        combo.addItem(resultado.get(i));
-	    }
-		
-	}*/
+	public void mapearDePersonaje1(Personaje p){
+		txtPersonaje1.setText(p.getNombre());
+		etiqDatoEnergiaPers1.setText(String.valueOf(p.getEnergia()));
+		etiqDatoVidaPers1.setText(String.valueOf(p.getVida()));
+		}
+	
+	public void mapearDePersonaje2(Personaje p){
+		txtPersonaje2.setText(p.getNombre());
+		etiqDatoEnergiaPers2.setText(String.valueOf(p.getEnergia()));
+		etiqDatoVidaPers2.setText(String.valueOf(p.getVida()));
+		}
+	
 }

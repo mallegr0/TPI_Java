@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 import data.DataPersonaje;
 import entidades.Personaje;
 
-public class controladorPartida {
+public class ControladorPartida {
 	
 	DataPersonaje data = new DataPersonaje();
 	ControladorPersonaje controladorPersonaje = new ControladorPersonaje();
@@ -21,8 +21,7 @@ public class controladorPartida {
 				} else {
 					JOptionPane.showMessageDialog(null,"El ataque NO fue evadido.", "El ataque NO fue evadido.", JOptionPane.INFORMATION_MESSAGE);
 				}
-				
-				cambiarTurno(personajeActivo, personajePasivo);
+				cambiarTurno();
 			} else {
 				JOptionPane.showMessageDialog(null,"El ataque NO pudo llevarse a cabo.", "Energía insuficiente.", JOptionPane.INFORMATION_MESSAGE);
 			}
@@ -32,11 +31,11 @@ public class controladorPartida {
 		}
 	}
 	
-	public void cambiarTurno(Personaje p1, Personaje p2){
+	public void cambiarTurno(){
 		Personaje aux = new Personaje();
-		aux = p1;
-		p1 = p2;
-		p2 = aux;
+		aux = personajeActivo;
+		personajeActivo = personajePasivo;
+		personajePasivo = aux;
 	}
 
 }
