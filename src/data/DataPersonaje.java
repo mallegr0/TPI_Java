@@ -60,7 +60,7 @@ public class DataPersonaje {
 		
 		try {
 			stmt=Conexion.getInstancia().getConn().prepareStatement("INSERT INTO personajes" +
-					"(idPersonaje, nombrePersonaje, puntosPersonaje, vidaPersonaje, energiaPersonaje, defensaPersonaje, evasionPersonaje) "
+					"(id, nombre, puntos, vida, energia, defensa, evasion) "
 					+ "VALUES(?,?,?,?,?,?,?)", PreparedStatement.RETURN_GENERATED_KEYS);
 			
 			stmt.setInt(1, p.getId());
@@ -105,9 +105,9 @@ public class DataPersonaje {
 		PreparedStatement stmt=null;
 		try {
 			stmt= Conexion.getInstancia().getConn().prepareStatement("update personajes set " +
-					"nombrePersonaje = ?, puntosPersonaje = ?, vidaPersonaje = ?, " +
-					"energiaPersonaje = ?, defensaPersonaje = ?, evasionPersonaje = ? " +
-					"WHERE idPersonaje = ?");
+					"nombre = ?, puntos = ?, vida = ?, " +
+					"energia = ?, defensa = ?, evasion = ? " +
+					"WHERE id = ?");
 			
 			stmt.setString(1, p.getNombre());
 			stmt.setInt(2, p.getPtosTotales());
@@ -174,18 +174,18 @@ public class DataPersonaje {
 		ResultSet rs=null;
 		try {
 			stmt = Conexion.getInstancia().getConn().prepareStatement(
-					"SELECT * FROM personajes WHERE idPersonaje = ?;", PreparedStatement.RETURN_GENERATED_KEYS);
+					"SELECT * FROM personajes WHERE id = ?;", PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setInt(1, per.getId());
 			rs= stmt.executeQuery();
 			if(rs!=null && rs.next()){
 				p = new Personaje();
-				p.setId(rs.getInt("idPersonaje"));
-				p.setNombre(rs.getString("nombrePersonaje"));
-				p.setVida(rs.getInt("vidaPersonaje"));
-				p.setDefensa(rs.getInt("defensaPersonaje"));
-				p.setPtosTotales(rs.getInt("puntosPersonaje"));
-				p.setEvasion(rs.getInt("evasionPersonaje"));
-				p.setEnergia(rs.getInt("energiaPersonaje"));
+				p.setId(rs.getInt("id"));
+				p.setNombre(rs.getString("nombre"));
+				p.setVida(rs.getInt("vida"));
+				p.setDefensa(rs.getInt("defensa"));
+				p.setPtosTotales(rs.getInt("puntos"));
+				p.setEvasion(rs.getInt("evasion"));
+				p.setEnergia(rs.getInt("energia"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -210,7 +210,6 @@ public class DataPersonaje {
 		return p;
 	}
 
-	@SuppressWarnings("rawtypes")
 	public ArrayList<String> listarPersonajes(){
 		ArrayList<String> listado = new ArrayList<>();
 		PreparedStatement decPrep = null;
@@ -222,7 +221,7 @@ public class DataPersonaje {
 			if(conjResult!=null && conjResult.next()){
 				while(conjResult.next()){
 					String p = new String();
-					p = conjResult.getString("nombrePersonaje");
+					p = conjResult.getString("nombre");
 					listado.add(p);
 				}
 			}
@@ -246,13 +245,7 @@ public class DataPersonaje {
 				e.printStackTrace();
 			}
 		}
-		
-		
-		int i;		
-		for(i=0; i<= listado.size(); i++){
-			System.out.println(listado.get(i));
-		}
-		
+
 		return listado;
 	}
 	

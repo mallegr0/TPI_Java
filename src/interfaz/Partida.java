@@ -1,36 +1,22 @@
 package interfaz;
 
-import java.awt.*;
-
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-
-import controlador.ControladorPersonaje;
-import data.DataPersonaje;
-import java.util.*;
+import java.awt.EventQueue;
 import java.awt.Font;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.awt.event.ActionEvent;
-import entidades.Personaje;
-import javafx.scene.control.ComboBox;
-import controlador.*;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-import javax.swing.JComboBox;
-import javax.swing.SwingConstants;
+import javax.swing.*;
+
+import controlador.ControladorPartida;
+import data.DataPersonaje;
+import entidades.Personaje;
 
 public class Partida extends JDialog {
 	private ControladorPartida partida = new ControladorPartida();
 	private JTextField txtTurno;
 	private JTextField txtPuntosAUsar;
 	private DataPersonaje data;
-	private JComboBox cbJugador2;
-	private JComboBox cbJugador1;
 	private JLabel etiqDatoVidaPers1;
 	private JLabel etiqDatoEnergiaPers1;
 	private JLabel etiqDatoVidaPers2;
@@ -50,25 +36,7 @@ public class Partida extends JDialog {
 					Partida dialog = new Partida();
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
-					
-					
-					/*personajeActivo.setNombre("Ryu");
-					personajeActivo.setEnergia(50);
-					personajeActivo.setVida(50);
-					personajeActivo.setDefensa(50);
-					personajeActivo.setEvasion(50);
-					personajeActivo.setId(7);
-					personajeActivo.setPtosTotales(200);
-					
-					personajePasivo.setNombre("Rhonda");
-					personajePasivo.setEnergia(50);
-					personajePasivo.setVida(50);
-					personajePasivo.setDefensa(50);
-					personajePasivo.setEvasion(50);
-					personajePasivo.setId(7);
-					personajePasivo.setPtosTotales(200);
-					*/
-					
+						
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -143,13 +111,12 @@ public class Partida extends JDialog {
 		getContentPane().add(txtPuntosAUsar);
 		
 		JButton btnAtacar = new JButton("");
-		btnAtacar.setIcon(new ImageIcon("D:\\Usuario\\Documents\\EDT_Eclipse\\TPI_Java\\src\\interfaz\\Bomba.png"));
+		btnAtacar.setIcon(new ImageIcon("C:\\Users\\Joel\\workspace\\TPI_Java\\src\\interfaz\\Bomba.png"));
 		btnAtacar.setBounds(141, 261, 89, 61);
-		//btnAtacar.setIcon(new ImageIcon(Partida.class.getResource("/interfaz/Bomba.png")));
 		getContentPane().add(btnAtacar);
 		
 		JButton botonDefender = new JButton("");
-		botonDefender.setIcon(new ImageIcon("D:\\Usuario\\Documents\\EDT_Eclipse\\TPI_Java\\src\\interfaz\\Escudo.png"));
+		botonDefender.setIcon(new ImageIcon("C:\\Users\\Joel\\workspace\\TPI_Java\\src\\interfaz\\Escudo.png"));
 		botonDefender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -157,31 +124,16 @@ public class Partida extends JDialog {
 		botonDefender.setBounds(268, 261, 89, 61);
 		getContentPane().add(botonDefender);
 		
-		cbJugador1 = new JComboBox();
-		/*cbJugador1.setModel(new DefaultComboBoxModel(new String[] {}));
-		try {
-			llenarCB(cbJugador1);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}*/
-		cbJugador1.setBounds(78, 38, 147, 20);
-		getContentPane().add(cbJugador1);
-		
-		cbJugador2 = new JComboBox();
-		cbJugador2.setBounds(242, 38, 147, 20);
-		getContentPane().add(cbJugador2);
-		
 		JLabel etiqJugador1 = new JLabel("JUGADOR N\u00B0 1");
 		etiqJugador1.setFont(new Font("Calibri", Font.BOLD, 14));
 		etiqJugador1.setHorizontalAlignment(SwingConstants.CENTER);
-		etiqJugador1.setBounds(107, 13, 95, 14);
+		etiqJugador1.setBounds(107, 36, 95, 14);
 		getContentPane().add(etiqJugador1);
 		
 		JLabel etiqJugador2 = new JLabel("JUGADOR N\u00B0 2");
 		etiqJugador2.setFont(new Font("Calibri", Font.BOLD, 14));
 		etiqJugador2.setHorizontalAlignment(SwingConstants.CENTER);
-		etiqJugador2.setBounds(268, 13, 89, 14);
+		etiqJugador2.setBounds(268, 36, 89, 14);
 		getContentPane().add(etiqJugador2);
 		
 		txtPersonaje1 = new JTextField();
@@ -193,6 +145,10 @@ public class Partida extends JDialog {
 		txtPersonaje2.setColumns(10);
 		txtPersonaje2.setBounds(242, 69, 147, 20);
 		getContentPane().add(txtPersonaje2);
+		
+		JButton button = new JButton("");
+		button.setBounds(10, 67, 68, 23);
+		getContentPane().add(button);
 
 		
 	}
@@ -208,5 +164,4 @@ public class Partida extends JDialog {
 		etiqDatoEnergiaPers2.setText(String.valueOf(p.getEnergia()));
 		etiqDatoVidaPers2.setText(String.valueOf(p.getVida()));
 		}
-	
 }

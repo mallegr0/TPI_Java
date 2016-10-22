@@ -65,7 +65,7 @@ public class VentanaPrincipal {
 		frmUtnFighter.getContentPane().add(botonSalir);
 		
 		JButton btnNewButton = new JButton("");
-		btnNewButton.setIcon(new ImageIcon("D:\\Usuario\\Documents\\EDT_Eclipse\\TPI_Java\\src\\interfaz\\Ryu.jpg"));
+		btnNewButton.setIcon(new ImageIcon("src\\interfaz\\Ryu.jpg"));
 		btnNewButton.setBounds(128, 38, 179, 161);
 		frmUtnFighter.getContentPane().add(btnNewButton);
 		
