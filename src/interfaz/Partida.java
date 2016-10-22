@@ -148,6 +148,7 @@ public class Partida extends JDialog {
 		
 		JButton button = new JButton("");
 		button.setBounds(10, 67, 68, 23);
+		button.setText("algo");
 		getContentPane().add(button);
 
 		
