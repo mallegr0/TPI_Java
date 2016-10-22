@@ -8,7 +8,7 @@ public class Personaje {
 	static int maximoDeEvasion = 80;
 	static int maximoDeDefensa = 20;
 	private String nombre;
-	private int id, vida, energia, defensa, evasion, ptosTotales, vidaAct = 0, energiaAct = 0;
+	private int id, vida, energia, defensa, evasion, ptosTotales, vidaAct, energiaAct;
 	private ControladorPersonaje ctrlPersonaje = new ControladorPersonaje(); 
 	
 	public Personaje(){

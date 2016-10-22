@@ -25,6 +25,8 @@ public class Partida extends JDialog {
 	public Personaje personaje2;
 	private JTextField txtPersonaje1;
 	private JTextField txtPersonaje2;
+	private JButton btnPers1;
+	private JButton btnPers2;
 
 	/**
 	 * Launch the application.
@@ -113,7 +115,16 @@ public class Partida extends JDialog {
 		btnAtacar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int energia = Integer.parseInt(txtPuntosAUsar.getText());
-				partida.atacar(energia, personaje1, personaje2);
+				if (partida.atacar(energia, personaje1, personaje2))
+				{
+					etiqDatoEnergiaPers1.setText(Integer.toString(personaje1.getEnergiaActual()));
+					etiqDatoVidaPers2.setText(Integer.toString(personaje2.getVidaActual()));
+				} 
+				else
+				{
+					limpiarPantalla();
+					
+				}
 			}
 		});
 		btnAtacar.setIcon(new ImageIcon("src\\interfaz\\Bomba.png"));
@@ -151,7 +162,7 @@ public class Partida extends JDialog {
 		txtPersonaje2.setBounds(242, 69, 147, 20);
 		getContentPane().add(txtPersonaje2);
 		
-		JButton btnPers1 = new JButton("");
+		btnPers1 = new JButton("");
 		btnPers1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Personaje p1 = new Personaje();
@@ -166,7 +177,7 @@ public class Partida extends JDialog {
 		btnPers1.setBounds(25, 68, 43, 23);
 		getContentPane().add(btnPers1);
 		
-		JButton btnPers2 = new JButton("");
+		btnPers2 = new JButton("");
 		btnPers2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Personaje p2 = new Personaje();
@@ -185,16 +196,16 @@ public class Partida extends JDialog {
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(!txtPersonaje1.isEditable() && !txtPersonaje2.isEditable()){
-					JOptionPane.showMessageDialog(null, "paso el 1 if" );
 					personaje1.setVidaActual(personaje1.getVida());
 					personaje2.setVidaActual(personaje2.getVida());
+					personaje1.setEnergiaActual(personaje1.getEnergia());
+					personaje2.setEnergiaActual(personaje2.getEnergia());
+					btnPers1.setEnabled(false);
+					btnPers2.setEnabled(false);
 					if(personaje1.getVidaActual() > 0 && personaje2.getVidaActual() > 0){
-						JOptionPane.showMessageDialog(null, "paso el 2 if" );	
 						txtTurno.setText(partida.cambiarTurno(personaje2, personaje1));
 					}
-					else{JOptionPane.showMessageDialog(null, "no toma las vidas actuales" );}
 				}
-				else{JOptionPane.showMessageDialog(null, "no toma los bloqueos" );}
 			}
 		});
 		btnIniciar.setBounds(64, 261, 104, 61);
@@ -215,4 +226,16 @@ public class Partida extends JDialog {
 		etiqDatoEnergiaPers2.setText(String.valueOf(p.getEnergia()));
 		etiqDatoVidaPers2.setText(String.valueOf(p.getVida()));
 		}
+	public void limpiarPantalla(){
+		etiqDatoEnergiaPers1.setText("-");
+		etiqDatoEnergiaPers2.setText("-");
+		etiqDatoVidaPers1.setText("-");
+		etiqDatoVidaPers2.setText("-");
+		txtPersonaje1.setText("");
+		txtPersonaje2.setText("");
+		txtPersonaje1.setEditable(true);
+		txtPersonaje2.setEditable(true);
+		btnPers1.setEnabled(true);
+		btnPers2.setEnabled(true);
+	}
 }

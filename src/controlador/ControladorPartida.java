@@ -12,7 +12,7 @@ public class ControladorPartida {
 	Personaje personajeActivo, personajePasivo;
 	
 	
-	public void atacar(int energia, Personaje personajeActivo, Personaje personajePasivo){
+	public boolean atacar(int energia, Personaje personajeActivo, Personaje personajePasivo){
 		
 		try {
 			if(controladorPersonaje.atacar(personajeActivo, energia)){
@@ -21,7 +21,12 @@ public class ControladorPartida {
 				} else {
 					JOptionPane.showMessageDialog(null,"El ataque NO fue evadido.", "El ataque NO fue evadido.", JOptionPane.INFORMATION_MESSAGE);
 				}
+				if(personajePasivo.getVidaActual() < 1){
+					return true;
+				}
+				else{
 				cambiarTurno(personajeActivo, personajePasivo);
+				}
 			} else {
 				JOptionPane.showMessageDialog(null,"El ataque NO pudo llevarse a cabo.", "Energía insuficiente.", JOptionPane.INFORMATION_MESSAGE);
 			}
@@ -29,6 +34,8 @@ public class ControladorPartida {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		return false;
 	}
 	
 	public String cambiarTurno(Personaje personajeActivo, Personaje personajePasivo){
