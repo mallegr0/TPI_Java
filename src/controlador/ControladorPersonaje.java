@@ -27,10 +27,9 @@ public class ControladorPersonaje {
 	}
 
 	public boolean atacar(Personaje p1, int energia) throws Exception{
-		int aux = p1.getEnergia() - energia;
+		int aux = p1.getEnergiaActual() - energia;
 		if(aux >= 0){
-			p1.setEnergia(aux);
-			data.modificaPersonaje(p1);
+			p1.setEnergiaActual(aux);
 			return true;
 		}else{
 			return false;
@@ -41,8 +40,7 @@ public class ControladorPersonaje {
 		if( (Math.random()*100) < p.getEvasion()){
 			return true;
 		} else {
-			p.setVida(p.getVida()- energia);
-			data.modificaPersonaje(p);
+			p.setVidaActual(p.getVidaActual()- energia);
 			return false;
 		}
 	}

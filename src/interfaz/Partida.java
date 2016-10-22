@@ -21,8 +21,8 @@ public class Partida extends JDialog {
 	private JLabel etiqDatoEnergiaPers1;
 	private JLabel etiqDatoVidaPers2;
 	private JLabel etiqDatoEnergiaPers2;
-	public Personaje personajeActivo;
-	public Personaje personajePasivo;
+	public Personaje personaje1;
+	public Personaje personaje2;
 	private JTextField txtPersonaje1;
 	private JTextField txtPersonaje2;
 
@@ -58,7 +58,7 @@ public class Partida extends JDialog {
 		etiqVidaPers1.setBounds(90, 106, 46, 14);
 		getContentPane().add(etiqVidaPers1);
 		
-		etiqDatoVidaPers1 = new JLabel("200");
+		etiqDatoVidaPers1 = new JLabel("-");
 		etiqDatoVidaPers1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		etiqDatoVidaPers1.setBounds(146, 106, 56, 14);
 		getContentPane().add(etiqDatoVidaPers1);
@@ -67,7 +67,7 @@ public class Partida extends JDialog {
 		etiqEnergiaPers1.setBounds(90, 136, 46, 14);
 		getContentPane().add(etiqEnergiaPers1);
 		
-		etiqDatoEnergiaPers1 = new JLabel("200");
+		etiqDatoEnergiaPers1 = new JLabel("-");
 		etiqDatoEnergiaPers1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		etiqDatoEnergiaPers1.setBounds(146, 136, 56, 14);
 		getContentPane().add(etiqDatoEnergiaPers1);
@@ -76,7 +76,7 @@ public class Partida extends JDialog {
 		etiqVidaPers2.setBounds(289, 106, 46, 14);
 		getContentPane().add(etiqVidaPers2);
 		
-		etiqDatoVidaPers2 = new JLabel("200");
+		etiqDatoVidaPers2 = new JLabel("-");
 		etiqDatoVidaPers2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		etiqDatoVidaPers2.setBounds(345, 106, 56, 14);
 		getContentPane().add(etiqDatoVidaPers2);
@@ -85,7 +85,7 @@ public class Partida extends JDialog {
 		etiqEnergiaPers2.setBounds(289, 136, 46, 14);
 		getContentPane().add(etiqEnergiaPers2);
 		
-		etiqDatoEnergiaPers2 = new JLabel("200");
+		etiqDatoEnergiaPers2 = new JLabel("-");
 		etiqDatoEnergiaPers2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		etiqDatoEnergiaPers2.setBounds(345, 136, 56, 14);
 		getContentPane().add(etiqDatoEnergiaPers2);
@@ -96,7 +96,6 @@ public class Partida extends JDialog {
 		
 		txtTurno = new JTextField();
 		txtTurno.setEditable(false);
-		//txtTurno.setText(personajeActivo.getNombre());
 		txtTurno.setBounds(204, 186, 86, 20);
 		getContentPane().add(txtTurno);
 		txtTurno.setColumns(10);
@@ -111,17 +110,23 @@ public class Partida extends JDialog {
 		getContentPane().add(txtPuntosAUsar);
 		
 		JButton btnAtacar = new JButton("");
-		btnAtacar.setIcon(new ImageIcon("C:\\Users\\Joel\\workspace\\TPI_Java\\src\\interfaz\\Bomba.png"));
-		btnAtacar.setBounds(141, 261, 89, 61);
+		btnAtacar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int energia = Integer.parseInt(txtPuntosAUsar.getText());
+				partida.atacar(energia, personaje1, personaje2);
+			}
+		});
+		btnAtacar.setIcon(new ImageIcon("src\\interfaz\\Bomba.png"));
+		btnAtacar.setBounds(201, 261, 89, 61);
 		getContentPane().add(btnAtacar);
 		
 		JButton botonDefender = new JButton("");
-		botonDefender.setIcon(new ImageIcon("C:\\Users\\Joel\\workspace\\TPI_Java\\src\\interfaz\\Escudo.png"));
+		botonDefender.setIcon(new ImageIcon("src\\interfaz\\Escudo.png"));
 		botonDefender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		botonDefender.setBounds(268, 261, 89, 61);
+		botonDefender.setBounds(320, 261, 89, 61);
 		getContentPane().add(botonDefender);
 		
 		JLabel etiqJugador1 = new JLabel("JUGADOR N\u00B0 1");
@@ -146,13 +151,58 @@ public class Partida extends JDialog {
 		txtPersonaje2.setBounds(242, 69, 147, 20);
 		getContentPane().add(txtPersonaje2);
 		
-		JButton button = new JButton("");
-		button.setBounds(10, 67, 68, 23);
-		button.setText("algo");
-		getContentPane().add(button);
+		JButton btnPers1 = new JButton("");
+		btnPers1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Personaje p1 = new Personaje();
+				p1.setNombre(txtPersonaje1.getText());
+				personaje1 = partida.buscaPersonaje(p1);
+				etiqDatoEnergiaPers1.setText(Integer.toString(personaje1.getEnergia()));
+				etiqDatoVidaPers1.setText(Integer.toString(personaje1.getVida()));
+				txtPersonaje1.setEditable(false);
+			}
+		});
+		btnPers1.setIcon(new ImageIcon(Partida.class.getResource("/com/sun/javafx/scene/control/skin/caspian/fxvk-capslock-button.png")));
+		btnPers1.setBounds(25, 68, 43, 23);
+		getContentPane().add(btnPers1);
+		
+		JButton btnPers2 = new JButton("");
+		btnPers2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Personaje p2 = new Personaje();
+				p2.setNombre(txtPersonaje2.getText());
+				personaje2 = partida.buscaPersonaje(p2);
+				etiqDatoEnergiaPers2.setText(Integer.toString(personaje2.getEnergia()));
+				etiqDatoVidaPers2.setText(Integer.toString(personaje2.getVida()));
+				txtPersonaje2.setEditable(false);
+			}
+		});
+		btnPers2.setIcon(new ImageIcon(Partida.class.getResource("/com/sun/javafx/scene/control/skin/caspian/fxvk-capslock-button.png")));
+		btnPers2.setBounds(400, 68, 43, 23);
+		getContentPane().add(btnPers2);
+		
+		JButton btnIniciar = new JButton("INICIAR");
+		btnIniciar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(!txtPersonaje1.isEditable() && !txtPersonaje2.isEditable()){
+					JOptionPane.showMessageDialog(null, "paso el 1 if" );
+					personaje1.setVidaActual(personaje1.getVida());
+					personaje2.setVidaActual(personaje2.getVida());
+					if(personaje1.getVidaActual() > 0 && personaje2.getVidaActual() > 0){
+						JOptionPane.showMessageDialog(null, "paso el 2 if" );	
+						txtTurno.setText(partida.cambiarTurno(personaje2, personaje1));
+					}
+					else{JOptionPane.showMessageDialog(null, "no toma las vidas actuales" );}
+				}
+				else{JOptionPane.showMessageDialog(null, "no toma los bloqueos" );}
+			}
+		});
+		btnIniciar.setBounds(64, 261, 104, 61);
+		getContentPane().add(btnIniciar);
 
 		
 	}
+	
 	
 	public void mapearDePersonaje1(Personaje p){
 		txtPersonaje1.setText(p.getNombre());
