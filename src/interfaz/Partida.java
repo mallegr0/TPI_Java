@@ -16,7 +16,6 @@ public class Partida extends JDialog {
 	private ControladorPartida partida = new ControladorPartida();
 	private JTextField txtTurno;
 	private JTextField txtPuntosAUsar;
-	private DataPersonaje data;
 	private JLabel etiqDatoVidaPers1;
 	private JLabel etiqDatoEnergiaPers1;
 	private JLabel etiqDatoVidaPers2;
@@ -27,6 +26,9 @@ public class Partida extends JDialog {
 	private JTextField txtPersonaje2;
 	private JButton btnPers1;
 	private JButton btnPers2;
+	private JButton btnIniciar;
+	private JButton btnAtacar;
+	private JButton botonDefender;
 
 	/**
 	 * Launch the application.
@@ -38,7 +40,6 @@ public class Partida extends JDialog {
 					Partida dialog = new Partida();
 					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 					dialog.setVisible(true);
-						
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -107,23 +108,24 @@ public class Partida extends JDialog {
 		getContentPane().add(etiqPuntos);
 		
 		txtPuntosAUsar = new JTextField();
+		txtPuntosAUsar.setEditable(false);
 		txtPuntosAUsar.setColumns(10);
 		txtPuntosAUsar.setBounds(204, 217, 86, 20);
 		getContentPane().add(txtPuntosAUsar);
 		
-		JButton btnAtacar = new JButton("");
+		btnAtacar = new JButton("");
+		btnAtacar.setEnabled(false);
 		btnAtacar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int energia = Integer.parseInt(txtPuntosAUsar.getText());
-				if (partida.atacar(energia, personaje1, personaje2))
-				{
+				if (!partida.atacar(energia, personaje1, personaje2)){
 					etiqDatoEnergiaPers1.setText(Integer.toString(personaje1.getEnergiaActual()));
 					etiqDatoVidaPers2.setText(Integer.toString(personaje2.getVidaActual()));
-				} 
-				else
-				{
+					//partida.cambiarTurno(personaje1, personaje2);
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "Partida finalizada. Ganador: " + personaje1.getNombre());
 					limpiarPantalla();
-					
 				}
 			}
 		});
@@ -131,7 +133,8 @@ public class Partida extends JDialog {
 		btnAtacar.setBounds(201, 261, 89, 61);
 		getContentPane().add(btnAtacar);
 		
-		JButton botonDefender = new JButton("");
+		botonDefender = new JButton("");
+		botonDefender.setEnabled(false);
 		botonDefender.setIcon(new ImageIcon("src\\interfaz\\Escudo.png"));
 		botonDefender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -171,10 +174,13 @@ public class Partida extends JDialog {
 				etiqDatoEnergiaPers1.setText(Integer.toString(personaje1.getEnergia()));
 				etiqDatoVidaPers1.setText(Integer.toString(personaje1.getVida()));
 				txtPersonaje1.setEditable(false);
+				if(!txtPersonaje2.isEditable()){
+					btnIniciar.setEnabled(true);
+				}
 			}
 		});
 		btnPers1.setIcon(new ImageIcon(Partida.class.getResource("/com/sun/javafx/scene/control/skin/caspian/fxvk-capslock-button.png")));
-		btnPers1.setBounds(25, 68, 43, 23);
+		btnPers1.setBounds(25, 61, 43, 40);
 		getContentPane().add(btnPers1);
 		
 		btnPers2 = new JButton("");
@@ -186,13 +192,18 @@ public class Partida extends JDialog {
 				etiqDatoEnergiaPers2.setText(Integer.toString(personaje2.getEnergia()));
 				etiqDatoVidaPers2.setText(Integer.toString(personaje2.getVida()));
 				txtPersonaje2.setEditable(false);
+				if(!txtPersonaje1.isEditable()){
+					btnIniciar.setEnabled(true);
+				}
 			}
 		});
 		btnPers2.setIcon(new ImageIcon(Partida.class.getResource("/com/sun/javafx/scene/control/skin/caspian/fxvk-capslock-button.png")));
-		btnPers2.setBounds(400, 68, 43, 23);
+		btnPers2.setBounds(400, 61, 43, 40);
 		getContentPane().add(btnPers2);
 		
-		JButton btnIniciar = new JButton("INICIAR");
+		btnIniciar = new JButton("Iniciar Partida");
+		btnIniciar.setEnabled(false);
+		btnIniciar.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(!txtPersonaje1.isEditable() && !txtPersonaje2.isEditable()){
@@ -202,13 +213,14 @@ public class Partida extends JDialog {
 					personaje2.setEnergiaActual(personaje2.getEnergia());
 					btnPers1.setEnabled(false);
 					btnPers2.setEnabled(false);
-					if(personaje1.getVidaActual() > 0 && personaje2.getVidaActual() > 0){
-						txtTurno.setText(partida.cambiarTurno(personaje2, personaje1));
-					}
+					btnAtacar.setEnabled(true);
+					botonDefender.setEnabled(true);
+					txtPuntosAUsar.setEditable(true);
+					txtTurno.setText(partida.cambiarTurno(personaje2, personaje1));
 				}
 			}
 		});
-		btnIniciar.setBounds(64, 261, 104, 61);
+		btnIniciar.setBounds(25, 261, 143, 61);
 		getContentPane().add(btnIniciar);
 
 		
@@ -237,5 +249,11 @@ public class Partida extends JDialog {
 		txtPersonaje2.setEditable(true);
 		btnPers1.setEnabled(true);
 		btnPers2.setEnabled(true);
+		txtPuntosAUsar.setText("");
+		txtTurno.setText("");
+		txtPuntosAUsar.setEditable(false);
+		btnIniciar.setEnabled(false);
+		btnAtacar.setEnabled(false);
+		botonDefender.setEnabled(false);
 	}
 }

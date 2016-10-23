@@ -29,10 +29,7 @@ public class ControladorPersonaje {
 	}
 
 	public boolean atacar(Personaje p1, int energia) throws Exception{
-		JOptionPane.showMessageDialog(null, energia);
 		int aux = p1.getEnergiaActual() - energia;
-		JOptionPane.showMessageDialog(null, p1.getEnergiaActual());
-		JOptionPane.showMessageDialog(null, aux);
 		if(aux >= 0){
 			p1.setEnergiaActual(aux);
 			return true;
