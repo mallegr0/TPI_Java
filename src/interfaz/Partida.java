@@ -22,6 +22,7 @@ public class Partida extends JDialog {
 	private JLabel etiqDatoEnergiaPers2;
 	public Personaje personaje1;
 	public Personaje personaje2;
+	public Personaje aux, aux2, atacante, defensor;
 	private JTextField txtPersonaje1;
 	private JTextField txtPersonaje2;
 	private JButton btnPers1;
@@ -113,31 +114,64 @@ public class Partida extends JDialog {
 		txtPuntosAUsar.setBounds(204, 217, 86, 20);
 		getContentPane().add(txtPuntosAUsar);
 		
+		//BOTON ATACAR
+		atacante = personaje1;
+		defensor = personaje2;
 		btnAtacar = new JButton("");
 		btnAtacar.setEnabled(false);
 		btnAtacar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) 
+			{
 				int energia = Integer.parseInt(txtPuntosAUsar.getText());
-				if (!partida.atacar(energia, personaje1, personaje2)){
-					etiqDatoEnergiaPers1.setText(Integer.toString(personaje1.getEnergiaActual()));
-					etiqDatoVidaPers2.setText(Integer.toString(personaje2.getVidaActual()));
-					//partida.cambiarTurno(personaje1, personaje2);
+				//COMPARA QUIEN ES EL ATACANTE Y SETEA LOS DATOS
+				if(personaje1.getNombre() == atacante.getNombre())
+				{
+					if (!partida.atacar(energia, atacante, defensor))
+					{
+						etiqDatoEnergiaPers1.setText(Integer.toString(atacante.getEnergiaActual()));
+						etiqDatoVidaPers2.setText(Integer.toString(defensor.getVidaActual()));
+						aux = partida.cambiarTurno();
+						txtTurno.setText(aux.getNombre());
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null, "Partida finalizada. Ganador: " + personaje1.getNombre());
+						limpiarPantalla();
+					}
 				}
-				else{
-					JOptionPane.showMessageDialog(null, "Partida finalizada. Ganador: " + personaje1.getNombre());
-					limpiarPantalla();
+				else
+				{
+						if (!partida.atacar(energia, atacante, defensor))
+						{
+							etiqDatoEnergiaPers2.setText(Integer.toString(atacante.getEnergiaActual()));
+							etiqDatoVidaPers1.setText(Integer.toString(defensor.getVidaActual()));
+							aux = partida.cambiarTurno();
+							txtTurno.setText(aux.getNombre());
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(null, "Partida finalizada. Ganador: " + personaje2.getNombre());
+							limpiarPantalla();
+						}
+					
 				}
+				aux = defensor;
+				defensor = atacante;
+				atacante = aux;
 			}
+			
 		});
 		btnAtacar.setIcon(new ImageIcon("src\\interfaz\\Bomba.png"));
 		btnAtacar.setBounds(201, 261, 89, 61);
 		getContentPane().add(btnAtacar);
 		
+		//BOTON DEFENDER
 		botonDefender = new JButton("");
 		botonDefender.setEnabled(false);
 		botonDefender.setIcon(new ImageIcon("src\\interfaz\\Escudo.png"));
 		botonDefender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//DEFENDER
 			}
 		});
 		botonDefender.setBounds(320, 261, 89, 61);
@@ -216,7 +250,11 @@ public class Partida extends JDialog {
 					btnAtacar.setEnabled(true);
 					botonDefender.setEnabled(true);
 					txtPuntosAUsar.setEditable(true);
-					txtTurno.setText(partida.cambiarTurno(personaje2, personaje1));
+					partida.setearTurno(personaje1, personaje2);
+					atacante = personaje1;
+					defensor = personaje2;
+					aux2 = partida.cambiarTurno();
+					txtTurno.setText(aux2.getNombre());
 				}
 			}
 		});
@@ -238,6 +276,7 @@ public class Partida extends JDialog {
 		etiqDatoEnergiaPers2.setText(String.valueOf(p.getEnergia()));
 		etiqDatoVidaPers2.setText(String.valueOf(p.getVida()));
 		}
+	
 	public void limpiarPantalla(){
 		etiqDatoEnergiaPers1.setText("-");
 		etiqDatoEnergiaPers2.setText("-");

@@ -1,5 +1,7 @@
 package controlador;
 
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 import data.DataPersonaje;
@@ -10,7 +12,8 @@ public class ControladorPartida {
 	DataPersonaje data = new DataPersonaje();
 	ControladorPersonaje controladorPersonaje = new ControladorPersonaje();
 	Personaje personajeActivo, personajePasivo;
-	
+	ArrayList<Personaje> turnos = new ArrayList<Personaje>();
+	int turno = 0;
 	
 	public boolean atacar(int energia, Personaje personajeActivo, Personaje personajePasivo){
 		
@@ -24,9 +27,7 @@ public class ControladorPartida {
 				if(personajePasivo.getVidaActual() < 1){
 					return true;
 				}
-				else{
-				cambiarTurno(personajeActivo, personajePasivo);
-				}
+				
 			} else {
 				JOptionPane.showMessageDialog(null,"El ataque NO pudo llevarse a cabo.", "Energía insuficiente.", JOptionPane.INFORMATION_MESSAGE);
 			}
@@ -38,14 +39,25 @@ public class ControladorPartida {
 		return false;
 	}
 	
-	public String cambiarTurno(Personaje personajeActivo, Personaje personajePasivo){
+	public Personaje cambiarTurno(){
 		Personaje aux = new Personaje();
-		aux = personajeActivo;
-		personajeActivo = personajePasivo;
-		personajePasivo = aux;
-		return personajeActivo.getNombre();
+		//Al turno lo uso para cambiar entre personaje 1 y 2
+		turno++;
+		
+		if((turno - 1) % 2 == 0){
+				aux = turnos.get(0);
+			}
+			else{
+				aux = turnos.get(1);
+			}
+		return aux;
 	}
 	
+	public void setearTurno(Personaje personajeActivo, Personaje personajePasivo){
+		turnos.add(0, personajeActivo);
+		turnos.add(1, personajePasivo);
+		
+	}
 	public Personaje buscaPersonaje(Personaje p){
 		return data.buscaPersonaje(p);
 	}
