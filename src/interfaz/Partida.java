@@ -124,6 +124,7 @@ public class Partida extends JDialog {
 			{
 				int energia = Integer.parseInt(txtPuntosAUsar.getText());
 				//COMPARA QUIEN ES EL ATACANTE Y SETEA LOS DATOS
+				int ptos = 0;
 				if(personaje1.getNombre() == atacante.getNombre())
 				{
 					if (!partida.atacar(energia, atacante, defensor))
@@ -136,6 +137,7 @@ public class Partida extends JDialog {
 					else
 					{
 						JOptionPane.showMessageDialog(null, "Partida finalizada. Ganador: " + personaje1.getNombre());
+						partida.ganador(personaje1);
 						limpiarPantalla();
 					}
 				}
@@ -151,6 +153,7 @@ public class Partida extends JDialog {
 						else
 						{
 							JOptionPane.showMessageDialog(null, "Partida finalizada. Ganador: " + personaje2.getNombre());
+							partida.ganador(personaje2);
 							limpiarPantalla();
 						}
 					

@@ -62,4 +62,12 @@ public class ControladorPartida {
 		return data.buscaPersonaje(p);
 	}
 	
+	public void ganador(Personaje jugador){
+		int ptos;
+		ptos = jugador.getPtosTotales();
+		ptos += 10;
+		jugador.setPtosTotales(ptos);
+		data.modificaPersonaje(jugador);
+	}
+	
 }
