@@ -39,6 +39,46 @@ public class ControladorPartida {
 		return false;
 	}
 	
+	public void defender(int defensa, Personaje defensor){
+		int energiaARecuperar, vidaARecuperar, vida, energia = 0;
+		energiaARecuperar = defensor.getEnergiaActual() + (defensor.getEnergia()*defensa)/100;
+		vidaARecuperar = defensor.getVidaActual() + (defensor.getVida()*defensa)/250;
+		
+		//Evita que la energia y la vida se pasen de los valores originales
+		if(energiaARecuperar > defensor.getEnergia() && vidaARecuperar > defensor.getVida())
+		{
+			vida = defensor.getVida();
+			energia = defensor.getEnergia();
+			JOptionPane.showMessageDialog(null, vida);
+			JOptionPane.showMessageDialog(null, energia);
+		}
+		else if(energiaARecuperar > defensor.getEnergia())
+		{
+			vida = vidaARecuperar;
+			energia = defensor.getEnergia();
+			JOptionPane.showMessageDialog(null, vida);
+			JOptionPane.showMessageDialog(null, energia);
+		}
+		else if(vidaARecuperar > defensor.getVida())
+		{
+			vida = defensor.getVida();
+			energia = energiaARecuperar;
+			JOptionPane.showMessageDialog(null, vida);
+			JOptionPane.showMessageDialog(null, energia);
+		}
+		else
+		{
+			vida = vidaARecuperar;
+			energia = energiaARecuperar;
+			JOptionPane.showMessageDialog(null, vida);
+			JOptionPane.showMessageDialog(null, energia);
+		}
+		
+		defensor.setEnergiaActual(energia);
+		defensor.setVidaActual(vida);
+		
+	}
+	
 	public Personaje cambiarTurno(){
 		Personaje aux = new Personaje();
 		//Al turno lo uso para cambiar entre personaje 1 y 2

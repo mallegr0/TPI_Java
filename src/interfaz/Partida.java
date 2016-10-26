@@ -174,7 +174,33 @@ public class Partida extends JDialog {
 		botonDefender.setIcon(new ImageIcon("src\\interfaz\\Escudo.png"));
 		botonDefender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//DEFENDER
+				int defensa = Integer.parseInt(txtPuntosAUsar.getText());
+				if(defensa <= 20)
+				{
+					//COMPARA QUIEN ES EL DEFENSOR Y SETEA LOS DATOS
+					if(personaje1.getNombre().equals(atacante.getNombre()) || personaje1.getNombre().equals(defensor.getNombre()))
+					{
+						partida.defender(defensa, personaje1);
+						aux = partida.cambiarTurno();
+						etiqDatoEnergiaPers1.setText(Integer.toString(personaje1.getEnergiaActual()));
+						etiqDatoVidaPers1.setText(Integer.toString(personaje1.getVidaActual()));
+						txtTurno.setText(aux.getNombre());
+					}
+					else
+					{
+						partida.defender(defensa, personaje2);
+						aux = partida.cambiarTurno();
+						etiqDatoEnergiaPers2.setText(Integer.toString(personaje2.getEnergiaActual()));
+						etiqDatoVidaPers2.setText(Integer.toString(personaje2.getVidaActual()));
+						txtTurno.setText(aux.getNombre());
+					}
+					
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(null, "La defensa tiene que ser menor de 20");
+					txtPuntosAUsar.setText("");
+				}
 			}
 		});
 		botonDefender.setBounds(320, 261, 89, 61);
