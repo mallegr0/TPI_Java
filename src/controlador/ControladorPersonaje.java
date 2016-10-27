@@ -1,7 +1,5 @@
 package controlador;
 
-import javax.swing.JOptionPane;
-
 import data.DataPersonaje;
 import entidades.Personaje;
 
@@ -22,7 +20,6 @@ public class ControladorPersonaje {
 	}
 	
 	public Personaje consultaPersonaje(Personaje p){
-		
 		Personaje per = new Personaje();
 		per = data.consultaPersonaje(p);		
 		return per;

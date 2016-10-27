@@ -1,19 +1,15 @@
 package interfaz;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import controlador.ControladorPersonaje;
 import entidades.Personaje;
-
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.JComboBox;
 import javax.swing.SwingConstants;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -144,12 +140,14 @@ public class ModificacionPersonaje extends JDialog {
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Personaje pEnv = new Personaje();
-				Personaje pRec = new Personaje();
-				pEnv.setId(Integer.parseInt(txtID.getText()));
-				pRec = ctrlPers.consultaPersonaje(pEnv);
-				mapearDePersonaje(pRec);
-				
+				Personaje p = new Personaje();
+				Personaje p2 = new Personaje();
+				p = mapearDeFormulario();
+				//JOptionPane.showMessageDialog(null, p.getId());
+				p2 = ctrlPers.consultaPersonaje(p);
+				if(p2!=null){
+					mapearDePersonaje(p2);	
+				}
 			}
 		});
 		btnBuscar.setBounds(179, 28, 89, 23);
@@ -164,5 +162,11 @@ public class ModificacionPersonaje extends JDialog {
 			txtEvasion.setText(String.valueOf(p.getEvasion()));
 			txtDefensa.setText(String.valueOf(p.getDefensa()));
 			txtPuntosPorAsignar.setText(String.valueOf(p.getPtosTotales()));
+		}
+		
+		public Personaje mapearDeFormulario(){
+			Personaje p = new Personaje();
+			p.setId(Integer.parseInt(txtID.getText()));
+			return p;
 		}
 }

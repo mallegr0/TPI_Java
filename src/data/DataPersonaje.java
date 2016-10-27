@@ -7,6 +7,8 @@ import java.util.*;
 
 import javax.swing.JOptionPane;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 import entidades.Personaje;
 import utilidades.ApplicationException;
 
@@ -104,10 +106,9 @@ public class DataPersonaje {
 	
 	public void eliminaPersonaje(Personaje p){
 		PreparedStatement stmt=null;
-		
 		try {
 			stmt = Conexion.getInstancia().getConn().prepareStatement(
-					"delete from personas where id=?");
+					"delete from personajes where id=?");
 			stmt.setInt(1, p.getId());
 			stmt.execute();
 		} catch (SQLException e) {
@@ -132,29 +133,27 @@ public class DataPersonaje {
 	}
 	
 	public Personaje consultaPersonaje(Personaje per){
-		Personaje p = null;
+		Personaje p = new Personaje();
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			stmt = Conexion.getInstancia().getConn().prepareStatement(
-					"SELECT * FROM personajes WHERE id = ?;", PreparedStatement.RETURN_GENERATED_KEYS);
+			stmt = Conexion.getInstancia().getConn().prepareStatement("SELECT * FROM personajes where id=?");
 			stmt.setInt(1, per.getId());
-			rs= stmt.executeQuery();
+			rs = stmt.executeQuery();
 			if(rs!=null && rs.next()){
-				p = new Personaje();
 				p.setId(rs.getInt("id"));
 				p.setNombre(rs.getString("nombre"));
 				p.setVida(rs.getInt("vida"));
 				p.setDefensa(rs.getInt("defensa"));
 				p.setPtosTotales(rs.getInt("puntos"));
 				p.setEvasion(rs.getInt("evasion"));
-				p.setEnergia(rs.getInt("energia"));
+				p.setEnergia(rs.getInt("energia"));				
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(null, "Hubo algun problema en la consulta a la BD");
 			e.printStackTrace();
 		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "Hubo algun problema con la aplicación");
 			e.printStackTrace();
 		}
 		finally {
@@ -214,6 +213,7 @@ public class DataPersonaje {
 		}
 		return p;
 	}
+	
 	public ArrayList<String> listarPersonajes(){
 		ArrayList<String> listado = new ArrayList<>();
 		PreparedStatement decPrep = null;

@@ -201,7 +201,7 @@ public class Partida extends JDialog {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(null, "La defensa tiene que ser menor de 20");
+					JOptionPane.showMessageDialog(null, "Los puntos de defensa tienen que ser menor o igual a 20");
 					txtPuntosAUsar.setText("");
 				}
 			}
@@ -302,8 +302,6 @@ public class Partida extends JDialog {
 		etiqEnJuego.setForeground(Color.RED);
 		etiqEnJuego.setBounds(170, 0, 122, 31);
 		getContentPane().add(etiqEnJuego);
-
-		
 	}
 	
 	
