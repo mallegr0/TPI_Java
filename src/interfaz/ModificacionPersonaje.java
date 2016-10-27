@@ -7,6 +7,10 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controlador.ControladorPersonaje;
+import entidades.Personaje;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -23,6 +27,8 @@ public class ModificacionPersonaje extends JDialog {
 	private JTextField txtEvasion;
 	private JTextField txtDefensa;
 	private JTextField txtPuntosPorAsignar;
+	private JTextField txtID;
+	private ControladorPersonaje ctrlPers;
 
 	/**
 	 * Launch the application.
@@ -50,13 +56,15 @@ public class ModificacionPersonaje extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(null);
 		
-		JLabel etiqPersonajes = new JLabel("Personajes");
-		etiqPersonajes.setVerticalAlignment(SwingConstants.BOTTOM);
-		etiqPersonajes.setBounds(51, 32, 73, 14);
-		contentPanel.add(etiqPersonajes);
+		JLabel etiqID = new JLabel("ID");
+		etiqID.setHorizontalAlignment(SwingConstants.LEFT);
+		etiqID.setVerticalAlignment(SwingConstants.BOTTOM);
+		etiqID.setBounds(66, 32, 60, 14);
+		contentPanel.add(etiqID);
 		
 		JLabel etiqNombre = new JLabel("Nombre");
-		etiqNombre.setBounds(66, 57, 46, 14);
+		etiqNombre.setHorizontalAlignment(SwingConstants.LEFT);
+		etiqNombre.setBounds(66, 57, 60, 14);
 		contentPanel.add(etiqNombre);
 		
 		txtNombre = new JTextField();
@@ -65,7 +73,8 @@ public class ModificacionPersonaje extends JDialog {
 		contentPanel.add(txtNombre);
 		
 		JLabel etiqEnergia = new JLabel("Energ\u00EDa");
-		etiqEnergia.setBounds(66, 82, 46, 14);
+		etiqEnergia.setHorizontalAlignment(SwingConstants.LEFT);
+		etiqEnergia.setBounds(66, 82, 60, 14);
 		contentPanel.add(etiqEnergia);
 		
 		txtEnergia = new JTextField();
@@ -74,7 +83,8 @@ public class ModificacionPersonaje extends JDialog {
 		contentPanel.add(txtEnergia);
 		
 		JLabel etiqVida = new JLabel("Vida");
-		etiqVida.setBounds(66, 107, 46, 14);
+		etiqVida.setHorizontalAlignment(SwingConstants.LEFT);
+		etiqVida.setBounds(66, 107, 60, 14);
 		contentPanel.add(etiqVida);
 		
 		txtVida = new JTextField();
@@ -83,7 +93,8 @@ public class ModificacionPersonaje extends JDialog {
 		contentPanel.add(txtVida);
 		
 		JLabel etiqEvasion = new JLabel("Evasi\u00F3n");
-		etiqEvasion.setBounds(66, 132, 46, 14);
+		etiqEvasion.setHorizontalAlignment(SwingConstants.LEFT);
+		etiqEvasion.setBounds(66, 132, 60, 14);
 		contentPanel.add(etiqEvasion);
 		
 		txtEvasion = new JTextField();
@@ -92,6 +103,7 @@ public class ModificacionPersonaje extends JDialog {
 		contentPanel.add(txtEvasion);
 		
 		JLabel etiqDefensa = new JLabel("Defensa");
+		etiqDefensa.setHorizontalAlignment(SwingConstants.LEFT);
 		etiqDefensa.setBounds(66, 157, 60, 14);
 		contentPanel.add(etiqDefensa);
 		
@@ -124,8 +136,33 @@ public class ModificacionPersonaje extends JDialog {
 		btnCancelar.setBounds(179, 239, 89, 23);
 		contentPanel.add(btnCancelar);
 		
-		JComboBox cbPersonajes = new JComboBox();
-		cbPersonajes.setBounds(122, 29, 133, 20);
-		contentPanel.add(cbPersonajes);
+		txtID = new JTextField();
+		txtID.setColumns(10);
+		txtID.setBounds(122, 29, 52, 20);
+		contentPanel.add(txtID);
+		
+		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Personaje pEnv = new Personaje();
+				Personaje pRec = new Personaje();
+				pEnv.setId(Integer.parseInt(txtID.getText()));
+				pRec = ctrlPers.consultaPersonaje(pEnv);
+				mapearDePersonaje(pRec);
+				
+			}
+		});
+		btnBuscar.setBounds(179, 28, 89, 23);
+		contentPanel.add(btnBuscar);
 	}
+	
+	//METODO PARA COMPLETAR EL FORMULARIO DE ABMC DESDE UN OBJETO PERSONAJE
+		public void mapearDePersonaje(Personaje p){
+			txtNombre.setText(p.getNombre());
+			txtEnergia.setText(String.valueOf(p.getEnergia()));
+			txtVida.setText(String.valueOf(p.getVida()));
+			txtEvasion.setText(String.valueOf(p.getEvasion()));
+			txtDefensa.setText(String.valueOf(p.getDefensa()));
+			txtPuntosPorAsignar.setText(String.valueOf(p.getPtosTotales()));
+		}
 }

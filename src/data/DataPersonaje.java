@@ -16,43 +16,6 @@ public class DataPersonaje {
 		
 	}
 	
-	public int devuelveID(){
-		int elID = 1;
-		ResultSet rs = null;
-		PreparedStatement stmt = null;
-		
-		try {
-			stmt = Conexion.getInstancia().getConn().prepareStatement("SELECT * FROM personajes", PreparedStatement.RETURN_GENERATED_KEYS);
-			stmt.execute();
-			rs = stmt.getGeneratedKeys();
-			if(rs!=null && rs.next()){
-				while (rs.next())
-				elID++;
-			}
-			return elID;	
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ApplicationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally{
-			try {
-				if(rs!=null) rs.close();
-				if(stmt!=null)stmt.close();
-				Conexion.getInstancia().releaseConn();
-			} catch (ApplicationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-						
-		}
-		return elID;
-	}
-	
 	public void altaPersonaje(Personaje p){
 		
 		ResultSet rs=null;

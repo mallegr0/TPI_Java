@@ -25,8 +25,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 
 public class AltaPersonaje extends JDialog {
-
-	private JTextField txtID;
 	private JTextField txtNombre;
 	private JTextField txtEnergia;
 	private JTextField txtVida;
@@ -55,69 +53,58 @@ public class AltaPersonaje extends JDialog {
 	 * Create the dialog.
 	 */
 	public AltaPersonaje() {
+		setTitle("Alta de Personajes");
 		setModal(true);
 		setResizable(false);
 		
-		//ACÁ CREO INSTANCIAS DEL CONTROLADOR Y EL DATA
 		ControladorPersonaje ctrl = new ControladorPersonaje();
-		DataPersonaje data = new DataPersonaje();
-		
-		setBounds(100, 100, 332, 302);
+				
+		setBounds(100, 100, 332, 274);
 		getContentPane().setLayout(null);
-		
-		JLabel etiqID = new JLabel("ID");
-		etiqID.setBounds(39, 16, 46, 14);
-		getContentPane().add(etiqID);
-		
-		txtID = new JTextField();
-		txtID.setHorizontalAlignment(SwingConstants.CENTER);
-		txtID.setColumns(10);
-		txtID.setBounds(95, 13, 86, 20);
-		getContentPane().add(txtID);
 		
 		txtNombre = new JTextField();
 		txtNombre.setColumns(10);
-		txtNombre.setBounds(95, 38, 133, 20);
+		txtNombre.setBounds(100, 22, 133, 20);
 		getContentPane().add(txtNombre);
 		
 		JLabel etiqNombre = new JLabel("Nombre");
-		etiqNombre.setBounds(39, 41, 46, 14);
+		etiqNombre.setBounds(44, 25, 46, 14);
 		getContentPane().add(etiqNombre);
 		
 		JLabel etiqEnergia = new JLabel("Energ\u00EDa");
-		etiqEnergia.setBounds(39, 66, 46, 14);
+		etiqEnergia.setBounds(44, 50, 46, 14);
 		getContentPane().add(etiqEnergia);
 		
 		txtEnergia = new JTextField();
 		txtEnergia.setColumns(10);
-		txtEnergia.setBounds(95, 63, 86, 20);
+		txtEnergia.setBounds(100, 47, 86, 20);
 		getContentPane().add(txtEnergia);
 		
 		txtVida = new JTextField();
 		txtVida.setColumns(10);
-		txtVida.setBounds(95, 88, 86, 20);
+		txtVida.setBounds(100, 72, 86, 20);
 		getContentPane().add(txtVida);
 		
 		JLabel EtiqVida = new JLabel("Vida");
-		EtiqVida.setBounds(39, 91, 46, 14);
+		EtiqVida.setBounds(44, 75, 46, 14);
 		getContentPane().add(EtiqVida);
 		
 		JLabel etiqEvasion = new JLabel("Evasi\u00F3n");
-		etiqEvasion.setBounds(39, 116, 46, 14);
+		etiqEvasion.setBounds(44, 100, 46, 14);
 		getContentPane().add(etiqEvasion);
 		
 		txtEvasion = new JTextField();
 		txtEvasion.setColumns(10);
-		txtEvasion.setBounds(95, 113, 86, 20);
+		txtEvasion.setBounds(100, 97, 86, 20);
 		getContentPane().add(txtEvasion);
 		
 		JLabel etiqDefensa = new JLabel("Defensa");
-		etiqDefensa.setBounds(39, 141, 60, 14);
+		etiqDefensa.setBounds(44, 125, 60, 14);
 		getContentPane().add(etiqDefensa);
 		
 		txtDefensa = new JTextField();
 		txtDefensa.setColumns(10);
-		txtDefensa.setBounds(95, 138, 86, 20);
+		txtDefensa.setBounds(100, 122, 86, 20);
 		getContentPane().add(txtDefensa);
 		
 		txtPuntos = new JTextField();
@@ -126,11 +113,11 @@ public class AltaPersonaje extends JDialog {
 		txtPuntos.setToolTipText("");
 		txtPuntos.setText("200");
 		txtPuntos.setColumns(10);
-		txtPuntos.setBounds(142, 183, 86, 20);
+		txtPuntos.setBounds(147, 167, 86, 20);
 		getContentPane().add(txtPuntos);
 		
 		JLabel etiqPuntos = new JLabel("Puntos por asignar");
-		etiqPuntos.setBounds(24, 186, 123, 14);
+		etiqPuntos.setBounds(29, 170, 123, 14);
 		getContentPane().add(etiqPuntos);
 		
 		JButton botonAceptar = new JButton("Aceptar");
@@ -139,17 +126,13 @@ public class AltaPersonaje extends JDialog {
 				Personaje p = new Personaje();
 				if (datosValidos()){
 					p = mapearDeFormulario();
-					if(p.validaPuntaje()){
 					ctrl.altaPersonaje(p);
-					JOptionPane.showMessageDialog(null, "Se guardo el personaje correctamente");
+					notificarUsuario("Se guardo el personaje correctamente");
 					limpiarFormulario();
-					} else {
-						notificarUsuario("Alguno de los puntajes no fue correctamente asignado");
-					}
 				}
 			}
 		});
-		botonAceptar.setBounds(66, 230, 89, 23);
+		botonAceptar.setBounds(67, 208, 89, 23);
 		getContentPane().add(botonAceptar);
 		
 		JButton botonSalir = new JButton("Salir");
@@ -158,7 +141,7 @@ public class AltaPersonaje extends JDialog {
 				dispose();
 			}
 		});
-		botonSalir.setBounds(166, 230, 89, 23);
+		botonSalir.setBounds(167, 208, 89, 23);
 		getContentPane().add(botonSalir);
 		
 		JButton botonLimpiar = new JButton("");
@@ -168,7 +151,7 @@ public class AltaPersonaje extends JDialog {
 				limpiarFormulario();
 			}
 		});
-		botonLimpiar.setBounds(250, 13, 40, 40);
+		botonLimpiar.setBounds(256, 22, 40, 40);
 		getContentPane().add(botonLimpiar);
 
 	}
@@ -176,20 +159,20 @@ public class AltaPersonaje extends JDialog {
 	//METODO QUE TOMA LOS DATOS DEL FORMULARIO ABMC Y LOS MAPEA A UNA INSTANCIA DE LA CLASE PERSONAJE
 	public Personaje mapearDeFormulario(){
 		Personaje p = new Personaje();
-		p.setId(Integer.parseInt(txtID.getText()));
+		int ptosUsados = (Integer.parseInt(txtEnergia.getText()) + Integer.parseInt(txtVida.getText()) +
+						  Integer.parseInt(txtEvasion.getText()) + Integer.parseInt(txtDefensa.getText()));
 		p.setNombre(txtNombre.getText());
 		p.setEnergia(Integer.parseInt(txtEnergia.getText()));
 		p.setVida(Integer.parseInt(txtVida.getText()));
 		p.setEvasion(Integer.parseInt(txtEvasion.getText()));
 		p.setDefensa(Integer.parseInt(txtDefensa.getText()));
-		p.setPtosTotales(Integer.parseInt(txtPuntos.getText()));
+		p.setPtosTotales(Integer.parseInt(txtPuntos.getText()) - ptosUsados);
 		
 		return p;
 	}
 	
 	//METODO PARA LIMPIAR EL FORMULARIO DE ABMC DE PERSONAJES
 	public void limpiarFormulario(){
-		txtID.setText("");
 		txtNombre.setText("");
 		txtEnergia.setText("");
 		txtVida.setText("");
@@ -200,7 +183,7 @@ public class AltaPersonaje extends JDialog {
 	//ESTE METODO HACE VALIDACIONES VARIAS SOBRE LOS DATOS INGRESADOS EN EL ABMC
 	public boolean datosValidos(){
 		boolean valido = true;
-		if(txtID.getText().trim().length() == 0 || txtNombre.getText().trim().length()==0
+		if(txtNombre.getText().trim().length()==0
 			|| txtEnergia.getText().trim().length()==0 || txtDefensa.getText().trim().length()==0
 			|| txtVida.getText().trim().length()==0 || txtEvasion.getText().trim().length()==0){
 			valido = false;
@@ -209,26 +192,24 @@ public class AltaPersonaje extends JDialog {
 
 		if(valido && (!txtVida.getText().matches("[0-9]*") || !txtEnergia.getText().matches("[0-9]*")
 			|| !txtEvasion.getText().matches("[0-9]*") || !txtDefensa.getText().matches("[0-9]*")
-			|| !txtPuntos.getText().matches("[0-9]*") || !txtID.getText().matches("[0-9]*"))){
+			|| !txtPuntos.getText().matches("[0-9]*"))){
 			valido = false;
 			notificarUsuario("A excepción del nombre, el resto de los campos debe ser numérico exclusivamente.");
 		}
+		
+		if(Integer.parseInt(txtDefensa.getText()) > 20 || Integer.parseInt(txtEvasion.getText()) > 80){
+			valido = false;
+			notificarUsuario("Valores máximos para Defensa 20 y Evasión 80");
+		}
+		
+		if((Integer.parseInt(txtDefensa.getText()) + Integer.parseInt(txtEvasion.getText()) +
+			Integer.parseInt(txtEnergia.getText()) + Integer.parseInt(txtVida.getText()) > 200)){
+			valido = false;
+			notificarUsuario("La suma total de puntos asignados no puede superar los 200 puntos.");
+		}
+		
 		return valido;		
 	}
-	
-	//METODO PARA VALIDAR LA DISTRIBUCION CORRECTA DE PUNTOS
-	
-	
-	//METODO PARA COMPLETAR EL FORMULARIO DE ABMC DESDE UN OBJETO PERSONAJE
-	public void mapearDePersonaje(Personaje p){
-		txtID.setText(String.valueOf(p.getId()));
-		txtNombre.setText(p.getNombre());
-		txtEnergia.setText(String.valueOf(p.getEnergia()));
-		txtVida.setText(String.valueOf(p.getVida()));
-		txtEvasion.setText(String.valueOf(p.getEvasion()));
-		txtDefensa.setText(String.valueOf(p.getDefensa()));
-		txtPuntos.setText(String.valueOf(p.getPtosTotales()));
-	};
 	
 	//METODO PARA NOTIFICAR ALGUN ERROR AL USUARIO
 	private void notificarUsuario(String mensaje) {

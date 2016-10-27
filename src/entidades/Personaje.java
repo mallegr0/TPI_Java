@@ -1,7 +1,5 @@
 package entidades;
 
-import controlador.ControladorPersonaje;
-
 public class Personaje {
 	
 	static int puntajeInicial = 200;
@@ -9,8 +7,7 @@ public class Personaje {
 	static int maximoDeDefensa = 20;
 	private String nombre;
 	private int id, vida, energia, defensa, evasion, ptosTotales, vidaAct, energiaAct;
-	private ControladorPersonaje ctrlPersonaje = new ControladorPersonaje(); 
-	
+		
 	public Personaje(){
 	}
 	
@@ -94,7 +91,7 @@ public class Personaje {
 		this.ptosTotales = ptosTotales;
 	}
 
-	//CONTROLA LOS PUNTAJES QUE PUEDE TENER ASIGNADO EL PERSONAJE PARA CADA CARACTERISTICA
+	/*CONTROLA LOS PUNTAJES QUE PUEDE TENER ASIGNADO EL PERSONAJE PARA CADA CARACTERISTICA
 	public boolean validaPuntaje(){
 		boolean respuesta;
 		
@@ -104,7 +101,7 @@ public class Personaje {
 			respuesta=false;
 		}
 		return respuesta;
-	}
+	}*/
 	
 	public void setEnergiaActual(int aux) {
 		this.energiaAct = aux;

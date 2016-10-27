@@ -4,13 +4,13 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.awt.Color;
 
 import javax.swing.*;
 
 import controlador.ControladorPartida;
-import data.DataPersonaje;
 import entidades.Personaje;
+
 
 public class Partida extends JDialog {
 	private ControladorPartida partida = new ControladorPartida();
@@ -30,7 +30,8 @@ public class Partida extends JDialog {
 	private JButton btnIniciar;
 	private JButton btnAtacar;
 	private JButton botonDefender;
-
+	private JLabel etiqEnJuego;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -133,6 +134,7 @@ public class Partida extends JDialog {
 						etiqDatoVidaPers2.setText(Integer.toString(defensor.getVidaActual()));
 						aux = partida.cambiarTurno();
 						txtTurno.setText(aux.getNombre());
+						txtPuntosAUsar.setText("");
 					}
 					else
 					{
@@ -149,6 +151,7 @@ public class Partida extends JDialog {
 							etiqDatoVidaPers1.setText(Integer.toString(defensor.getVidaActual()));
 							aux = partida.cambiarTurno();
 							txtTurno.setText(aux.getNombre());
+							txtPuntosAUsar.setText("");
 						}
 						else
 						{
@@ -284,11 +287,21 @@ public class Partida extends JDialog {
 					defensor = personaje2;
 					aux2 = partida.cambiarTurno();
 					txtTurno.setText(aux2.getNombre());
+					btnIniciar.setEnabled(false);
+					etiqEnJuego.setText("EN JUEGO");
 				}
 			}
 		});
 		btnIniciar.setBounds(25, 261, 143, 61);
 		getContentPane().add(btnIniciar);
+		
+		//ETIQUETA "EN JUEGO", SE HABILITA DESDE QUE INICIA LA PARTIDA HASTA QUE HAY UN GANADOR
+		etiqEnJuego = new JLabel("");
+		etiqEnJuego.setHorizontalAlignment(SwingConstants.CENTER);
+		etiqEnJuego.setFont(new Font("Tahoma", Font.BOLD, 15));
+		etiqEnJuego.setForeground(Color.RED);
+		etiqEnJuego.setBounds(170, 0, 122, 31);
+		getContentPane().add(etiqEnJuego);
 
 		
 	}
@@ -323,5 +336,6 @@ public class Partida extends JDialog {
 		btnIniciar.setEnabled(false);
 		btnAtacar.setEnabled(false);
 		botonDefender.setEnabled(false);
+		etiqEnJuego.setText("");
 	}
 }
