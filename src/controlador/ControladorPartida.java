@@ -16,7 +16,9 @@ public class ControladorPartida {
 	int turno = 0;
 	
 	public boolean atacar(int energia, Personaje personajeActivo, Personaje personajePasivo){
-		
+		//ACA SE ME OCURRE QUE PODRIAMOS RETORNAR UN INT EN LUGAR DE UN BOOLEAN PARA HACER UN SWITCH EN
+		//LA PARTIDA EN QUE SI DEVUELVE 1 SIGUE LA PARTIDA, 2 NO ATACÓ, 3 TERMINO PORQUE ALGUNO SE QUEDO
+		//SIN VIDA Y 4 SI TERMINÓ PORQUE AMBOS SE QUEDARON SIN ENERGIA PARA USAR.
 		try {
 				controladorPersonaje.atacar(personajeActivo, energia);
 				if(energia == 0){

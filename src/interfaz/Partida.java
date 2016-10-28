@@ -188,9 +188,7 @@ public class Partida extends JDialog {
 		botonDefender.setIcon(new ImageIcon("src\\interfaz\\Escudo.png"));
 		botonDefender.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int defensa = Integer.parseInt(txtPuntosAUsar.getText());
-				if(defensa <= 20)
-				{
+				int defensa = Integer.parseInt(txtPuntosAUsar.getText());				
 					//COMPARA QUIEN ES EL DEFENSOR Y SETEA LOS DATOS
 					if(personaje1.getNombre().equals(atacante.getNombre()) || personaje1.getNombre().equals(defensor.getNombre()))
 					{
@@ -207,14 +205,7 @@ public class Partida extends JDialog {
 						etiqDatoEnergiaPers2.setText(Integer.toString(personaje2.getEnergiaActual()));
 						etiqDatoVidaPers2.setText(Integer.toString(personaje2.getVidaActual()));
 						txtTurno.setText(aux.getNombre());
-					}
-					
-				}
-				else
-				{
-					notificarUsuario("Los puntos de defensa tienen que ser menor o igual a 20");
-					txtPuntosAUsar.setText("");
-				}
+					}				
 			}
 		});
 		botonDefender.setBounds(320, 261, 89, 61);
@@ -322,12 +313,14 @@ public class Partida extends JDialog {
 		etiqDatoVidaPers1.setText(String.valueOf(p.getVida()));
 		}
 	
+	
 	public void mapearDePersonaje2(Personaje p){
 		txtPersonaje2.setText(p.getNombre());
 		etiqDatoEnergiaPers2.setText(String.valueOf(p.getEnergia()));
 		etiqDatoVidaPers2.setText(String.valueOf(p.getVida()));
 		}
 	
+	//LIMPIA LA PANTALLA Y ACTUALIZA ESTADO DE BOTONES Y CUADROS DE TEXTO CUANDO TERMINA LA PARTIDA
 	public void limpiarPantalla(){
 		etiqDatoEnergiaPers1.setText("-");
 		etiqDatoEnergiaPers2.setText("-");
