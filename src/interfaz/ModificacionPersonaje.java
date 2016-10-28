@@ -141,12 +141,13 @@ public class ModificacionPersonaje extends JDialog {
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Personaje p = new Personaje();
-				Personaje p2 = new Personaje();
 				p = mapearDeFormulario();
-				//JOptionPane.showMessageDialog(null, p.getId());
-				p2 = ctrlPers.consultaPersonaje(p);
-				if(p2!=null){
-					mapearDePersonaje(p2);	
+				p = ctrlPers.consultaPersonaje(p);
+				if(p!=null){
+					mapearDePersonaje(p);	
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "No existe el personaje");
 				}
 			}
 		});

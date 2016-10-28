@@ -125,7 +125,6 @@ public class Partida extends JDialog {
 			{
 				int energia = Integer.parseInt(txtPuntosAUsar.getText());
 				//COMPARA QUIEN ES EL ATACANTE Y SETEA LOS DATOS
-				int ptos = 0;
 				if(personaje1.getNombre() == atacante.getNombre())
 				{
 					if (!partida.atacar(energia, atacante, defensor))

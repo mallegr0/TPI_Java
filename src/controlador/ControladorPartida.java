@@ -20,16 +20,17 @@ public class ControladorPartida {
 		try {
 			if(controladorPersonaje.atacar(personajeActivo, energia)){
 				if(controladorPersonaje.calcularEvasion(personajePasivo,energia)){
-					JOptionPane.showMessageDialog(null,"El ataque fue evadido.", "El ataque fue evadido.", JOptionPane.INFORMATION_MESSAGE);
+					notificarUsuario("El ataque fue evadido.");
 				} else {
-					JOptionPane.showMessageDialog(null,"El ataque NO fue evadido.", "El ataque NO fue evadido.", JOptionPane.INFORMATION_MESSAGE);
+					notificarUsuario("El ataque NO fue evadido.");
 				}
 				if(personajePasivo.getVidaActual() < 1){
 					return true;
 				}
-				
 			} else {
-				JOptionPane.showMessageDialog(null,"El ataque NO pudo llevarse a cabo.", "Energía insuficiente.", JOptionPane.INFORMATION_MESSAGE);
+				notificarUsuario("El ataque no pudo llevarse a cabo por falta de energía.");
+				//ACÁ HABRÍA QUE VER PORQUE SE DEVUELVE FALSE Y EN LA INTERFAZ ESO SIGNIFICA
+				//QUE HAY QUE CAMBIAR DE TURNO, LO QUE NO ES CORRECTO PARA LA LOGICA DEL JUEGO.
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -109,5 +110,10 @@ public class ControladorPartida {
 		jugador.setPtosTotales(ptos);
 		data.modificaPersonaje(jugador);
 	}
+	
+	//METODO PARA NOTIFICAR ALGUN ERROR AL USUARIO
+		private void notificarUsuario(String mensaje) {
+			JOptionPane.showMessageDialog(null, mensaje);
+		}
 	
 }

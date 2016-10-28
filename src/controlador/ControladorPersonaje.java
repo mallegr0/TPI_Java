@@ -20,15 +20,13 @@ public class ControladorPersonaje {
 	}
 	
 	public Personaje consultaPersonaje(Personaje p){
-		Personaje per = new Personaje();
-		per = data.consultaPersonaje(p);		
-		return per;
+		return data.consultaPersonaje(p);
 	}
 
-	public boolean atacar(Personaje p1, int energia) throws Exception{
-		int aux = p1.getEnergiaActual() - energia;
+	public boolean atacar(Personaje p, int energia) throws Exception{
+		int aux = p.getEnergiaActual() - energia;
 		if(aux >= 0){
-			p1.setEnergiaActual(aux);
+			p.setEnergiaActual(aux);
 			return true;
 		}else{
 			return false;

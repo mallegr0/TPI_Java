@@ -133,27 +133,29 @@ public class DataPersonaje {
 	}
 	
 	public Personaje consultaPersonaje(Personaje per){
-		Personaje p = new Personaje();
+		Personaje p = null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
-			stmt = Conexion.getInstancia().getConn().prepareStatement("SELECT * FROM personajes where id=?");
+			stmt = Conexion.getInstancia().getConn().prepareStatement(
+					"SELECT * FROM personajes WHERE id = ?;", PreparedStatement.RETURN_GENERATED_KEYS);
 			stmt.setInt(1, per.getId());
-			rs = stmt.executeQuery();
+			rs= stmt.executeQuery();
 			if(rs!=null && rs.next()){
+				p = new Personaje();
 				p.setId(rs.getInt("id"));
 				p.setNombre(rs.getString("nombre"));
 				p.setVida(rs.getInt("vida"));
 				p.setDefensa(rs.getInt("defensa"));
 				p.setPtosTotales(rs.getInt("puntos"));
 				p.setEvasion(rs.getInt("evasion"));
-				p.setEnergia(rs.getInt("energia"));				
+				p.setEnergia(rs.getInt("energia"));
 			}
 		} catch (SQLException e) {
-				JOptionPane.showMessageDialog(null, "Hubo algun problema en la consulta a la BD");
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ApplicationException e) {
-			JOptionPane.showMessageDialog(null, "Hubo algun problema con la aplicación");
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally {
