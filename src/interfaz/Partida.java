@@ -53,6 +53,8 @@ public class Partida extends JDialog {
 	 * Create the dialog.
 	 */
 	public Partida() {
+		atacante = personaje1;
+		defensor = personaje2;
 				
 		setTitle("Partida");
 		setModal(true);
@@ -116,8 +118,6 @@ public class Partida extends JDialog {
 		getContentPane().add(txtPuntosAUsar);
 		
 		//BOTON ATACAR
-		atacante = personaje1;
-		defensor = personaje2;
 		btnAtacar = new JButton("");
 		btnAtacar.setEnabled(false);
 		btnAtacar.addActionListener(new ActionListener() {
@@ -190,7 +190,7 @@ public class Partida extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				int defensa = Integer.parseInt(txtPuntosAUsar.getText());				
 					//COMPARA QUIEN ES EL DEFENSOR Y SETEA LOS DATOS
-					if(personaje1.getNombre().equals(atacante.getNombre()) || personaje1.getNombre().equals(defensor.getNombre()))
+					if(personaje1.getNombre().equals(atacante.getNombre()))
 					{
 						partida.defender(defensa, personaje1);
 						aux = partida.cambiarTurno();
@@ -205,7 +205,24 @@ public class Partida extends JDialog {
 						etiqDatoEnergiaPers2.setText(Integer.toString(personaje2.getEnergiaActual()));
 						etiqDatoVidaPers2.setText(Integer.toString(personaje2.getVidaActual()));
 						txtTurno.setText(aux.getNombre());
-					}				
+					}		
+					
+					if(personaje2.getNombre().equals(atacante.getNombre()))
+					{
+						partida.defender(defensa, personaje2);
+						aux = partida.cambiarTurno();
+						etiqDatoEnergiaPers2.setText(Integer.toString(personaje2.getEnergiaActual()));
+						etiqDatoVidaPers2.setText(Integer.toString(personaje2.getVidaActual()));
+						txtTurno.setText(aux.getNombre());
+					}
+					else
+					{
+						partida.defender(defensa, personaje1);
+						aux = partida.cambiarTurno();
+						etiqDatoEnergiaPers1.setText(Integer.toString(personaje1.getEnergiaActual()));
+						etiqDatoVidaPers1.setText(Integer.toString(personaje1.getVidaActual()));
+						txtTurno.setText(aux.getNombre());
+					}
 			}
 		});
 		botonDefender.setBounds(320, 261, 89, 61);

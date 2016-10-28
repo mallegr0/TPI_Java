@@ -107,8 +107,7 @@ public class DataPersonaje {
 	public void eliminaPersonaje(Personaje p){
 		PreparedStatement stmt=null;
 		try {
-			stmt = Conexion.getInstancia().getConn().prepareStatement(
-					"delete from personajes where id=?");
+			stmt = Conexion.getInstancia().getConn().prepareStatement("delete from personajes where id=?");
 			stmt.setInt(1, p.getId());
 			stmt.execute();
 		} catch (SQLException e) {

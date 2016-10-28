@@ -50,29 +50,21 @@ public class ControladorPartida {
 		{
 			vida = defensor.getVida();
 			energia = defensor.getEnergia();
-			JOptionPane.showMessageDialog(null, vida);
-			JOptionPane.showMessageDialog(null, energia);
 		}
 		else if(energiaARecuperar > defensor.getEnergia())
 		{
 			vida = vidaARecuperar;
 			energia = defensor.getEnergia();
-			JOptionPane.showMessageDialog(null, vida);
-			JOptionPane.showMessageDialog(null, energia);
 		}
 		else if(vidaARecuperar > defensor.getVida())
 		{
 			vida = defensor.getVida();
 			energia = energiaARecuperar;
-			JOptionPane.showMessageDialog(null, vida);
-			JOptionPane.showMessageDialog(null, energia);
 		}
 		else
 		{
 			vida = vidaARecuperar;
 			energia = energiaARecuperar;
-			JOptionPane.showMessageDialog(null, vida);
-			JOptionPane.showMessageDialog(null, energia);
 		}
 		
 		defensor.setEnergiaActual(energia);
