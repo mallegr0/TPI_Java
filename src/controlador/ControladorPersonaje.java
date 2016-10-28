@@ -23,14 +23,8 @@ public class ControladorPersonaje {
 		return data.consultaPersonaje(p);
 	}
 
-	public boolean atacar(Personaje p, int energia) throws Exception{
-		int aux = p.getEnergiaActual() - energia;
-		if(aux >= 0){
-			p.setEnergiaActual(aux);
-			return true;
-		}else{
-			return false;
-		}
+	public void atacar(Personaje p, int energia) throws Exception{
+		p.setEnergiaActual(p.getEnergiaActual() - energia);
 	}
 	
 	public boolean calcularEvasion(Personaje p, int energia){

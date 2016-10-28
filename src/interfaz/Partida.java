@@ -127,23 +127,32 @@ public class Partida extends JDialog {
 				//COMPARA QUIEN ES EL ATACANTE Y SETEA LOS DATOS
 				if(personaje1.getNombre() == atacante.getNombre())
 				{
-					if (!partida.atacar(energia, atacante, defensor))
-					{
-						etiqDatoEnergiaPers1.setText(Integer.toString(atacante.getEnergiaActual()));
-						etiqDatoVidaPers2.setText(Integer.toString(defensor.getVidaActual()));
-						aux = partida.cambiarTurno();
-						txtTurno.setText(aux.getNombre());
-						txtPuntosAUsar.setText("");
-					}
-					else
-					{
-						JOptionPane.showMessageDialog(null, "Partida finalizada. Ganador: " + personaje1.getNombre());
-						partida.ganador(personaje1);
-						limpiarPantalla();
+					if (atacante.getEnergiaActual()>= energia){
+						if (!partida.atacar(energia, atacante, defensor))
+						{
+							etiqDatoEnergiaPers1.setText(Integer.toString(atacante.getEnergiaActual()));
+							etiqDatoVidaPers2.setText(Integer.toString(defensor.getVidaActual()));
+							aux = partida.cambiarTurno();
+							txtTurno.setText(aux.getNombre());
+							txtPuntosAUsar.setText("");
+							//ESTO LO MANDÉ ACÁ Y NO ESTOY SEGURO
+							aux = defensor;
+							defensor = atacante;
+							atacante = aux;
+						}
+						else
+						{
+							notificarUsuario("Partida finalizada. Ganador: " + personaje1.getNombre());
+							partida.ganador(personaje1);
+							limpiarPantalla();
+						}
+					} else{
+						notificarUsuario("Los puntos de energía del personaje no son suficientes para realizar el ataque");
 					}
 				}
 				else
 				{
+					if (atacante.getEnergiaActual()>= energia){
 						if (!partida.atacar(energia, atacante, defensor))
 						{
 							etiqDatoEnergiaPers2.setText(Integer.toString(atacante.getEnergiaActual()));
@@ -151,18 +160,21 @@ public class Partida extends JDialog {
 							aux = partida.cambiarTurno();
 							txtTurno.setText(aux.getNombre());
 							txtPuntosAUsar.setText("");
+							//ESTO LO MANDÉ ACÁ Y NO ESTOY SEGURO
+							aux = defensor;
+							defensor = atacante;
+							atacante = aux;
 						}
 						else
 						{
-							JOptionPane.showMessageDialog(null, "Partida finalizada. Ganador: " + personaje2.getNombre());
+							notificarUsuario("Partida finalizada. Ganador: " + personaje2.getNombre());
 							partida.ganador(personaje2);
 							limpiarPantalla();
 						}
-					
+					} else{
+						notificarUsuario("Los puntos de energía del personaje no son suficientes para realizar el ataque");
+					}
 				}
-				aux = defensor;
-				defensor = atacante;
-				atacante = aux;
 			}
 			
 		});
@@ -335,4 +347,10 @@ public class Partida extends JDialog {
 		botonDefender.setEnabled(false);
 		etiqEnJuego.setText("");
 	}
+	
+	//METODO PARA NOTIFICAR ALGUN ERROR AL USUARIO
+	private void notificarUsuario(String mensaje) {
+		JOptionPane.showMessageDialog(null, mensaje);
+	}
+			
 }

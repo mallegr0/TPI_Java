@@ -18,7 +18,7 @@ public class ControladorPartida {
 	public boolean atacar(int energia, Personaje personajeActivo, Personaje personajePasivo){
 		
 		try {
-			if(controladorPersonaje.atacar(personajeActivo, energia)){
+				controladorPersonaje.atacar(personajeActivo, energia);
 				if(controladorPersonaje.calcularEvasion(personajePasivo,energia)){
 					notificarUsuario("El ataque fue evadido.");
 				} else {
@@ -27,16 +27,9 @@ public class ControladorPartida {
 				if(personajePasivo.getVidaActual() < 1){
 					return true;
 				}
-			} else {
-				notificarUsuario("El ataque no pudo llevarse a cabo por falta de energía.");
-				//ACÁ HABRÍA QUE VER PORQUE SE DEVUELVE FALSE Y EN LA INTERFAZ ESO SIGNIFICA
-				//QUE HAY QUE CAMBIAR DE TURNO, LO QUE NO ES CORRECTO PARA LA LOGICA DEL JUEGO.
-			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return false;
 	}
 	
