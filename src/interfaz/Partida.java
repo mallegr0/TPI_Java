@@ -212,7 +212,7 @@ public class Partida extends JDialog {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(null, "Los puntos de defensa tienen que ser menor o igual a 20");
+					notificarUsuario("Los puntos de defensa tienen que ser menor o igual a 20");
 					txtPuntosAUsar.setText("");
 				}
 			}

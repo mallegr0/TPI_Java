@@ -19,12 +19,17 @@ public class ControladorPartida {
 		
 		try {
 				controladorPersonaje.atacar(personajeActivo, energia);
+				if(energia == 0){
+					notificarUsuario("Sin puntos para atacar, cambia de turno sin efecto alguno");
+				}
+				else{
 				if(controladorPersonaje.calcularEvasion(personajePasivo,energia)){
 					notificarUsuario("El ataque fue evadido.");
 				} else {
 					notificarUsuario("El ataque NO fue evadido.");
 				}
-				if(personajePasivo.getVidaActual() < 1){
+				}
+				if((personajePasivo.getVidaActual() < 1) || (personajeActivo.getEnergiaActual() == 0 && personajePasivo.getEnergiaActual() == 0)){
 					return true;
 				}
 		} catch (Exception e) {
