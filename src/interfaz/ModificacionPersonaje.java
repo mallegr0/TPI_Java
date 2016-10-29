@@ -120,6 +120,14 @@ public class ModificacionPersonaje extends JDialog {
 		contentPanel.add(etiqPuntosXAsignar);
 		
 		JButton btnAceptar = new JButton("Aceptar");
+		btnAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Personaje p = new Personaje();
+				p = mapearDeFormulario();
+				ctrlPers.modificaPersonaje(p);
+				limpiarFormulario();				
+			}
+		});
 		btnAceptar.setBounds(85, 239, 89, 23);
 		contentPanel.add(btnAceptar);
 		
@@ -140,6 +148,7 @@ public class ModificacionPersonaje extends JDialog {
 		JButton btnBuscar = new JButton("Buscar");
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ctrlPers = new ControladorPersonaje();
 				Personaje p = new Personaje();
 				p = mapearDeFormulario();
 				p = ctrlPers.consultaPersonaje(p);
@@ -169,5 +178,15 @@ public class ModificacionPersonaje extends JDialog {
 			Personaje p = new Personaje();
 			p.setId(Integer.parseInt(txtID.getText()));
 			return p;
+		}
+		
+		public void limpiarFormulario(){
+			txtID.setText("");
+			txtNombre.setText("");
+			txtEnergia.setText("");
+			txtVida.setText("");
+			txtEvasion.setText("");
+			txtDefensa.setText("");
+			txtPuntosPorAsignar.setText("");
 		}
 }

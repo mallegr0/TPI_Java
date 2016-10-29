@@ -18,6 +18,10 @@ public class BajaPersonaje extends JDialog {
 	private JTextField txtID;
 	private ControladorPersonaje ctrl;
 	private JTextField txtNombre;
+	private JTextField txtVida;
+	private JTextField txtEnergia;
+	private JTextField txtEvasion;
+	private JTextField txtDefensa;
 
 	/**
 	 * Launch the application.
@@ -43,7 +47,7 @@ public class BajaPersonaje extends JDialog {
 		setModal(true);
 		setTitle("Eliminaci\u00F3n de Personajes");
 		setResizable(false);
-		setBounds(100, 100, 332, 182);
+		setBounds(100, 100, 332, 288);
 		getContentPane().setLayout(null);
 		
 		JLabel etiqID = new JLabel("ID");
@@ -56,25 +60,24 @@ public class BajaPersonaje extends JDialog {
 		btnEliminar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Personaje p = new Personaje();
+				ctrl = new ControladorPersonaje();
 				p = mapearDeFormulario();
-				if(JOptionPane.showConfirmDialog(null, "¿Está seguro que desea eliminar el personaje?") == 1){
-					ctrl.eliminaPersonaje(p);
-					txtID.setText("");
-					txtNombre.setText("");	
-				}
+				ctrl.eliminaPersonaje(p);
+				txtID.setText("");
+				txtNombre.setText("");
 			}
 		});
-		btnEliminar.setBounds(71, 107, 89, 23);
+		btnEliminar.setBounds(62, 224, 89, 23);
 		getContentPane().add(btnEliminar);
 		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
+		JButton btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			dispose();
 			}
 		});
-		btnCancelar.setBounds(165, 107, 89, 23);
-		getContentPane().add(btnCancelar);
+		btnSalir.setBounds(156, 224, 89, 23);
+		getContentPane().add(btnSalir);
 		
 		txtID = new JTextField();
 		txtID.setBounds(94, 24, 45, 20);
@@ -82,10 +85,20 @@ public class BajaPersonaje extends JDialog {
 		txtID.setColumns(10);
 		
 		JButton btnBuscar = new JButton("Buscar");
+		btnBuscar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Personaje p = new Personaje();
+				ctrl = new ControladorPersonaje();
+				p = mapearDeFormulario();
+				p = ctrl.consultaPersonaje(p);
+				mapearAFormulario(p);
+			}
+		});
 		btnBuscar.setBounds(149, 23, 89, 23);
 		getContentPane().add(btnBuscar);
 		
 		txtNombre = new JTextField();
+		txtNombre.setEditable(false);
 		txtNombre.setColumns(10);
 		txtNombre.setBounds(94, 56, 144, 20);
 		getContentPane().add(txtNombre);
@@ -95,6 +108,54 @@ public class BajaPersonaje extends JDialog {
 		etiqNombre.setHorizontalAlignment(SwingConstants.RIGHT);
 		etiqNombre.setBounds(23, 59, 61, 14);
 		getContentPane().add(etiqNombre);
+		
+		txtVida = new JTextField();
+		txtVida.setEditable(false);
+		txtVida.setColumns(10);
+		txtVida.setBounds(94, 87, 144, 20);
+		getContentPane().add(txtVida);
+		
+		JLabel etiqVida = new JLabel("Vida");
+		etiqVida.setVerticalAlignment(SwingConstants.BOTTOM);
+		etiqVida.setHorizontalAlignment(SwingConstants.RIGHT);
+		etiqVida.setBounds(23, 90, 61, 14);
+		getContentPane().add(etiqVida);
+		
+		txtEnergia = new JTextField();
+		txtEnergia.setEditable(false);
+		txtEnergia.setColumns(10);
+		txtEnergia.setBounds(94, 118, 144, 20);
+		getContentPane().add(txtEnergia);
+		
+		JLabel etiqEnergia = new JLabel("Energ\u00EDa");
+		etiqEnergia.setVerticalAlignment(SwingConstants.BOTTOM);
+		etiqEnergia.setHorizontalAlignment(SwingConstants.RIGHT);
+		etiqEnergia.setBounds(23, 121, 61, 14);
+		getContentPane().add(etiqEnergia);
+		
+		txtEvasion = new JTextField();
+		txtEvasion.setEditable(false);
+		txtEvasion.setColumns(10);
+		txtEvasion.setBounds(94, 180, 144, 20);
+		getContentPane().add(txtEvasion);
+		
+		txtDefensa = new JTextField();
+		txtDefensa.setEditable(false);
+		txtDefensa.setColumns(10);
+		txtDefensa.setBounds(94, 149, 144, 20);
+		getContentPane().add(txtDefensa);
+		
+		JLabel etiqDefensa = new JLabel("Defensa");
+		etiqDefensa.setVerticalAlignment(SwingConstants.BOTTOM);
+		etiqDefensa.setHorizontalAlignment(SwingConstants.RIGHT);
+		etiqDefensa.setBounds(23, 152, 61, 14);
+		getContentPane().add(etiqDefensa);
+		
+		JLabel etiqEvasion = new JLabel("Evasi\u00F3n");
+		etiqEvasion.setVerticalAlignment(SwingConstants.BOTTOM);
+		etiqEvasion.setHorizontalAlignment(SwingConstants.RIGHT);
+		etiqEvasion.setBounds(23, 183, 61, 14);
+		getContentPane().add(etiqEvasion);
 
 	}
 	
@@ -102,5 +163,9 @@ public class BajaPersonaje extends JDialog {
 		Personaje p = new Personaje();
 		p.setId(Integer.parseInt(txtID.getText()));
 		return p;
+	}
+	
+	public void mapearAFormulario(Personaje p){
+		txtNombre.setText(p.getNombre());
 	}
 }
