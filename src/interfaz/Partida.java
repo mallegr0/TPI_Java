@@ -196,6 +196,9 @@ public class Partida extends JDialog {
 						aux = partida.cambiarTurno();
 						etiqDatoEnergiaPers1.setText(Integer.toString(personaje1.getEnergiaActual()));
 						etiqDatoVidaPers1.setText(Integer.toString(personaje1.getVidaActual()));
+						aux = defensor;
+						defensor = atacante;
+						atacante = aux;
 						txtTurno.setText(aux.getNombre());
 					}
 					else
@@ -204,25 +207,11 @@ public class Partida extends JDialog {
 						aux = partida.cambiarTurno();
 						etiqDatoEnergiaPers2.setText(Integer.toString(personaje2.getEnergiaActual()));
 						etiqDatoVidaPers2.setText(Integer.toString(personaje2.getVidaActual()));
+						aux = defensor;
+						defensor = atacante;
+						atacante = aux;
 						txtTurno.setText(aux.getNombre());
 					}		
-					
-					if(personaje2.getNombre().equals(atacante.getNombre()))
-					{
-						partida.defender(defensa, personaje2);
-						aux = partida.cambiarTurno();
-						etiqDatoEnergiaPers2.setText(Integer.toString(personaje2.getEnergiaActual()));
-						etiqDatoVidaPers2.setText(Integer.toString(personaje2.getVidaActual()));
-						txtTurno.setText(aux.getNombre());
-					}
-					else
-					{
-						partida.defender(defensa, personaje1);
-						aux = partida.cambiarTurno();
-						etiqDatoEnergiaPers1.setText(Integer.toString(personaje1.getEnergiaActual()));
-						etiqDatoVidaPers1.setText(Integer.toString(personaje1.getVidaActual()));
-						txtTurno.setText(aux.getNombre());
-					}
 			}
 		});
 		botonDefender.setBounds(320, 261, 89, 61);
