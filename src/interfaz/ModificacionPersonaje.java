@@ -1,6 +1,9 @@
 package interfaz;
 
 import java.awt.BorderLayout;
+
+import javax.print.attribute.standard.JobKOctetsProcessed;
+import javax.print.attribute.standard.JobMessageFromOperator;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -25,6 +28,7 @@ public class ModificacionPersonaje extends JDialog {
 	private JTextField txtPuntosPorAsignar;
 	private JTextField txtID;
 	private ControladorPersonaje ctrlPers;
+	private int sumaInicial = 0;
 
 	/**
 	 * Launch the application.
@@ -123,22 +127,34 @@ public class ModificacionPersonaje extends JDialog {
 		btnAceptar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Personaje p = new Personaje();
-				p = mapearDeFormulario();
-				ctrlPers.modificaPersonaje(p);
-				limpiarFormulario();				
+				p = mapearDeFormulario2();
+				int suma = p.getVida() + p.getEnergia() + p.getDefensa() + p.getEvasion();
+				if(p.getDefensa() <= 20 && p.getEvasion() <= 80){
+					if(suma <= sumaInicial){
+						p.setPtosTotales(sumaInicial - suma);
+						ctrlPers.modificaPersonaje(p);
+						limpiarFormulario();
+						txtID.setEditable(true);
+						JOptionPane.showMessageDialog(null, "Se modicó el personaje correctamente.");
+					} else{
+						JOptionPane.showMessageDialog(null, "La cantidad de puntos reasignada es mayor a la disponible para reasignar.");
+					}
+				} else{
+					JOptionPane.showMessageDialog(null, "PUNTAJES MAXIMOS: Defensa 20 - Evasión 80.");
+				}
 			}
 		});
 		btnAceptar.setBounds(85, 239, 89, 23);
 		contentPanel.add(btnAceptar);
 		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
+		JButton btnSalir = new JButton("Salir");
+		btnSalir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(179, 239, 89, 23);
-		contentPanel.add(btnCancelar);
+		btnSalir.setBounds(179, 239, 89, 23);
+		contentPanel.add(btnSalir);
 		
 		txtID = new JTextField();
 		txtID.setColumns(10);
@@ -153,7 +169,9 @@ public class ModificacionPersonaje extends JDialog {
 				p = mapearDeFormulario();
 				p = ctrlPers.consultaPersonaje(p);
 				if(p!=null){
-					mapearDePersonaje(p);	
+					sumaInicial = (p.getVida() + p.getEnergia() + p.getDefensa() + p.getEvasion() + p.getPtosTotales());
+					mapearDePersonaje(p);
+					txtID.setEditable(false);
 				}
 				else{
 					JOptionPane.showMessageDialog(null, "No existe el personaje");
@@ -177,6 +195,17 @@ public class ModificacionPersonaje extends JDialog {
 		public Personaje mapearDeFormulario(){
 			Personaje p = new Personaje();
 			p.setId(Integer.parseInt(txtID.getText()));
+			return p;
+		}
+		
+		public Personaje mapearDeFormulario2(){
+			Personaje p = new Personaje();
+			p.setId(Integer.parseInt(txtID.getText()));
+			p.setNombre(txtNombre.getText());
+			p.setVida(Integer.parseInt(txtVida.getText()));
+			p.setEnergia(Integer.parseInt(txtEnergia.getText()));
+			p.setDefensa(Integer.parseInt(txtDefensa.getText()));
+			p.setEvasion(Integer.parseInt(txtEvasion.getText()));
 			return p;
 		}
 		

@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
+import javax.swing.ImageIcon;
 
 public class BajaPersonaje extends JDialog {
 	private JTextField txtID;
@@ -22,6 +23,7 @@ public class BajaPersonaje extends JDialog {
 	private JTextField txtEnergia;
 	private JTextField txtEvasion;
 	private JTextField txtDefensa;
+	private JButton btnLimpiar;
 
 	/**
 	 * Launch the application.
@@ -44,6 +46,8 @@ public class BajaPersonaje extends JDialog {
 	 * Create the dialog.
 	 */
 	public BajaPersonaje() {
+		ctrl = new ControladorPersonaje();
+		
 		setModal(true);
 		setTitle("Eliminaci\u00F3n de Personajes");
 		setResizable(false);
@@ -63,8 +67,8 @@ public class BajaPersonaje extends JDialog {
 				ctrl = new ControladorPersonaje();
 				p = mapearDeFormulario();
 				ctrl.eliminaPersonaje(p);
-				txtID.setText("");
-				txtNombre.setText("");
+				JOptionPane.showMessageDialog(null, "El personaje se eliminó correctamente");
+				limpiarFormulario();
 			}
 		});
 		btnEliminar.setBounds(62, 224, 89, 23);
@@ -88,10 +92,15 @@ public class BajaPersonaje extends JDialog {
 		btnBuscar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Personaje p = new Personaje();
-				ctrl = new ControladorPersonaje();
 				p = mapearDeFormulario();
 				p = ctrl.consultaPersonaje(p);
-				mapearAFormulario(p);
+				if(p!=null){
+					mapearAFormulario(p);
+					txtID.setEditable(false);
+				}
+				else{
+					JOptionPane.showMessageDialog(null, "El personaje no existe");
+				}
 			}
 		});
 		btnBuscar.setBounds(149, 23, 89, 23);
@@ -156,6 +165,16 @@ public class BajaPersonaje extends JDialog {
 		etiqEvasion.setHorizontalAlignment(SwingConstants.RIGHT);
 		etiqEvasion.setBounds(23, 183, 61, 14);
 		getContentPane().add(etiqEvasion);
+		
+		btnLimpiar = new JButton("");
+		btnLimpiar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				limpiarFormulario();
+			}
+		});
+		btnLimpiar.setIcon(new ImageIcon(BajaPersonaje.class.getResource("/com/sun/javafx/scene/web/skin/Undo_16x16_JFX.png")));
+		btnLimpiar.setBounds(261, 23, 40, 40);
+		getContentPane().add(btnLimpiar);
 
 	}
 	
@@ -165,7 +184,22 @@ public class BajaPersonaje extends JDialog {
 		return p;
 	}
 	
+	public void limpiarFormulario(){
+		btnLimpiar.setEnabled(true);
+		txtID.setEditable(true);
+		txtID.setText("");
+		txtNombre.setText("");
+		txtDefensa.setText("");
+		txtVida.setText("");
+		txtEnergia.setText("");
+		txtEvasion.setText("");
+	}
+	
 	public void mapearAFormulario(Personaje p){
 		txtNombre.setText(p.getNombre());
+		txtDefensa.setText(Integer.toString(p.getDefensa()));
+		txtEnergia.setText(Integer.toString(p.getEnergia()));
+		txtEvasion.setText(Integer.toString(p.getEvasion()));
+		txtVida.setText(Integer.toString(p.getVida()));		
 	}
 }
